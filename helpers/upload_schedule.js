@@ -13,7 +13,7 @@ function scheduleRemove(callback){
     secret : secret
   };
 
-  request({ method : 'POST', url : `http://localhost/api/schedule/remove/all`, json : json }, (e, r, b) => {
+  request({ method : 'POST', url : `http://${host}/api/schedule/remove/all`, json : json }, (e, r, b) => {
     if(e){
       callback(e, null);
     } else if(r.statusCode != 200){
@@ -38,7 +38,7 @@ function scheduleNew(schedule, callback){
     schedule : schedule
   };
 
-  request({ method : 'POST', url : `http://localhost/api/schedule/new`, json : json }, (e, r, b) => {
+  request({ method : 'POST', url : `http://${host}/api/schedule/new`, json : json }, (e, r, b) => {
     if(e){
       callback(e, null);
     } else if(r.statusCode != 200){
@@ -62,7 +62,7 @@ function groupRemove(callback){
     secret : secret
   };
 
-  request({ method : 'POST', url : `http://localhost/api/group/remove/all`, json : json }, (e, r, b) => {
+  request({ method : 'POST', url : `http://${host}/api/group/remove/all`, json : json }, (e, r, b) => {
     if(e){
       callback(e, null);
     } else if(r.statusCode != 200){
@@ -87,7 +87,7 @@ function groupNew(group, callback){
     group : group
   };
 
-  request({ method : 'POST', url : `http://localhost/api/group/new`, json : json }, (e, r, b) => {
+  request({ method : 'POST', url : `http://${host}/api/group/new`, json : json }, (e, r, b) => {
     if(e){
       callback(e, null);
     } else if(r.statusCode != 200){
