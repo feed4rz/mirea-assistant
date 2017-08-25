@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MIREA Assistant</title>
+
+    <%- include('layout/head') -%>
+  </head>
+  <body>
+    <h2 class="header" style="padding:10px;">MIREA Assistant</h2>
+    <div class="ui stackable two column grid" style="padding:10px;overflow-x:auto;" id="schedule">
+      <% for(var i = 0; i < 6; i++) { %>
+      <div class="column">
+        <h3 class="header">Понедельник</h3>
+        <table class="ui compact unstackable striped table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th><i class="wait icon"></i></th>
+              <th><i class="book icon"></i></th>
+              <th><i class="map icon"></i></th>
+              <th>Тип</th>
+              <th><i class="user icon"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var j = 0; j < 6; j++) { %>
+            <tr>
+              <td><%= j+1 %></td>
+              <td>9:00 - 10:30</td>
+              <td>Процед. программирование</td>
+              <td>А-16</td>
+              <td>ЛК</td>
+              <td>Каширская Е.Н.</td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>
