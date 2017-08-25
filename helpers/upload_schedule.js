@@ -1,7 +1,9 @@
 /* Standalone app that uploads a json schedule */
 
 /* Config */
-const secret = '';
+if(!process.argv[2]) throw 'Please, provide secret as a parameter';
+
+const secret = process.argv[2];
 const host = 'localhost';
 
 /* Dependencies */
@@ -110,10 +112,14 @@ scheduleRemove((err, res) => {
   if(err){
     throw err;
   } else {
+		console.log('Current schedule: clear');
+		
     groupRemove((err, res) => {
       if(err){
         throw err;
       } else {
+				console.log('Current group list: clear');
+				
         for(let i = 0; i < schedule.length; i++){
           scheduleNew(schedule[i], (err, res) => {});
 
@@ -125,6 +131,8 @@ scheduleRemove((err, res) => {
 
           groupNew(group, (err, res) => {});
         }
+				
+				console.log('Done');
       }
     });
   }
