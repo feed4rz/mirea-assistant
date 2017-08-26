@@ -10,8 +10,20 @@
       <h2 class="header" id="logo">
         <a class="ui logo icon image" href="/">
           <img src="/img/logo_mirea.png">
-        </a> MIREA Assistant
+        </a>
+        MIREA Assistant
       </h2>
+      <div class="ui horizontal bulleted link list" id="menu">
+        <a class="item" href="javascript:about();">
+          <i class="help icon"></i> О проекте
+        </a>
+        <a class="item" href="https://github.com/feed4rz/mirea-assistant" target="_blank">
+          <i class="github icon"></i> Github
+        </a>
+        <a class="item" href="https://github.com/feed4rz/mirea-assistant#api" target="_blank">
+          <i class="database icon"></i> API
+        </a>
+      </div>
       <div class="ui compact form" id="form">
         <div class="disabled fields" id="institute">
           <div class="field">
@@ -50,6 +62,43 @@
       </div>
       <div class="ui stackable two column grid" id="schedule">
 
+      </div>
+    </div>
+
+    <div class="ui basic modal" id="about-modal">
+      <div class="ui icon header">
+        <img src="/img/logo_mirea.png">
+        О проекте
+      </div>
+      <div class="content">
+        <p>Ассистент МИРЭА сделан для получения студентам различной информации об Университете.</p>
+        <p>На данный момент реализован сервис удобного расписания, который показывает нужную неделю, выделяет день и текущую пару.</p>
+        <p>Планируется добавить карту аудиторий, которая покажет как быстро добраться до нужной аудитории, доску объявлений, отображение замен в расписании, а также, возможно, личный кабинет с оценками.</p>
+        <p>Если расписание вашей группы/института отсутствует или оно не совпадает с действительностью, обратитесь к авторам проекта.</p>
+        <p>Также рекомендуется посетить <a href="https://github.com/feed4rz/mirea-assistant" target="_blank">репозиторий проекта</a> для ознакомления с API и возможностью его доработки (при желании).</p>
+        <p></p>
+        <p>
+          <div class="ui list">
+            <div class="item">
+              <i class="user icon"></i>
+              <div class="content">
+                feed4rz <a href="https://vk.com/id312615911" target="_blank">vk.com/id312615911</a>
+              </div>
+            </div>
+            <div class="item">
+              <i class="user icon"></i>
+              <div class="content">
+                Ruslan Vinter <a href="https://vk.com/r_vinter" target="_blank">vk.com/r_vinter</a>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="actions">
+        <div class="ui red basic cancel button">
+          <i class="remove icon"></i>
+          Закрыть
+        </div>
       </div>
     </div>
   </body>
