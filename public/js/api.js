@@ -1,56 +1,55 @@
-class API {
-  constructor(){
-  }
+var API = function(){
 
-  api_call(url, data, callback) {
-    $.ajax({
-      url: url,
-      data: JSON.stringify(data),
-      cache: false,
-      contentType: 'application/json',
-      type: 'POST',
-      success: (data) => {
-        console.log(data);
+};
 
-        if(data.success || data.success == "true"){
-          callback(null, data.response);
-        } else {
-          callback(data.err, null);
-        }
-      }
-    });
-  }
+API.prototype.api_call = function(url, data, callback) {
+  $.ajax({
+    url: url,
+    data: JSON.stringify(data),
+    cache: false,
+    contentType: 'application/json',
+    type: 'POST',
+    success: function(data){
+      console.log(data);
 
-  institute_get_type(type){
-    let types = {
-      0 : 'Институт информационных технологий'
-    };
-
-    return types[type];
-  }
-
-  group_get_all(callback){
-    this.api_call('/api/group/get/all', {}, (err, res) => {
-      if(err){
-        callback(err, null);
+      if(data.success || data.success == "true"){
+        callback(null, data.response);
       } else {
-        callback(null, res);
+        callback(data.err, null);
       }
-    });
-  }
+    }
+  });
+}
 
-  schedule_get(params, callback){
-    if(!params) return callback('Invalid parameter1', null);
-    if(!params.institute && params.institute != 0) return callback('Invalid parameter2', null);
-    if(!params.term) return callback('Invalid parameter3', null);
-    if(!params.group) return callback('Invalid parameter4', null);
+API.prototype.institute_get_type = function(type){
+  let types = {
+    0 : 'Институт информационных технологий'
+  };
 
-    this.api_call('/api/schedule/get', params, (err, res) => {
-      if(err){
-        callback(err, null);
-      } else {
-        callback(null, res);
-      }
-    });
-  }
+  return types[type];
+}
+
+API.prototype.group_get_all = function(callback){
+  this.api_call('/api/group/get/all', {}, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
+API.prototype.schedule_get = function(params, callback){
+  if(!params) return callback('Invalid parameter1', null);
+  if(!params.institute && params.institute != 0) return callback('Invalid parameter2', null);
+  if(!params.term) return callback('Invalid parameter3', null);
+  if(!params.group) return callback('Invalid parameter4', null);
+
+  this.api_call('/api/schedule/get', params, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
 }

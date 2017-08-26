@@ -1,21 +1,21 @@
 Date.prototype.getWeek = function () {
-    let onejan = new Date(this.getFullYear(), 0, 1);
+    var onejan = new Date(this.getFullYear(), 0, 1);
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 };
 
-let institutes = {};
-let institute = null;
-let group = null;
-let week = 'odd';
+var institutes = {};
+var institute = null;
+var group = null;
+var week = 'odd';
 
-$(document).ready(() => {
+$(document).ready(function(){
   loading(true);
 
-  api.group_get_all((err, res) => {
+  api.group_get_all(function(err, res){
     if(err){
       console.log(err);
     } else {
-      for(let i = 0; i < res.groups.length; i++){
+      for(var i = 0; i < res.groups.length; i++){
         if(!institutes[res.groups[i].institute]) institutes[res.groups[i].institute] = [];
 
         institutes[res.groups[i].institute].push(res.groups[i].group);
@@ -23,13 +23,15 @@ $(document).ready(() => {
 
       $('#institute_value').html('');
 
-      for(let key in institutes){
-        let model = '<div class="item" data-value="'+key+'" onclick="selectInstitute('+key+')">'+api.institute_get_type(key)+'</div>';
+      for(var key in institutes){
+        var model = '<div class="item" data-value="'+key+'" onclick="selectInstitute('+key+')">'+api.institute_get_type(key)+'</div>';
 
         $('#institute_value').append(model);
       }
 
       $('#institute_dropdown').dropdown();
+
+      enable('institute', false);
 
       loadSelected();
     }
@@ -39,14 +41,14 @@ $(document).ready(() => {
 });
 
 function selectInstitute(inst){
-  let groups = institutes[inst];
+  var groups = institutes[inst];
 
   institute = inst;
 
   $('#group_value').html('');
 
-  for(let i = 0; i < groups.length; i++){
-    let model = '<div class="item" data-value="'+groups[i]+'" onclick="selectGroup(\''+groups[i]+'\')">'+convertGroupName(groups[i])+'</div>';
+  for(var i = 0; i < groups.length; i++){
+    var model = '<div class="item" data-value="'+groups[i]+'" onclick="selectGroup(\''+groups[i]+'\')">'+convertGroupName(groups[i])+'</div>';
 
     $('#group_value').append(model);
   }
@@ -71,15 +73,15 @@ function selectGroup(grp){
 function selectWeek(type){
   week = type;
 
-  api.schedule_get({ term : getTerm(), institute : institute, group : group }, (err, res) => {
+  api.schedule_get({ term : getTerm(), institute : institute, group : group }, function(err, res){
     if(err){
       console.log(err);
     } else {
       $('#schedule').text('');
 
-      let schedule = res.schedule;
+      var schedule = res.schedule;
 
-      for(let i = 0; i < schedule.days.length; i++){
+      for(var i = 0; i < schedule.days.length; i++){
         renderDay(i, schedule.days[i]);
       }
 
@@ -131,20 +133,20 @@ function enable(field, e){
 }
 
 function getTerm(){
-  let date = new Date();
+  var date = new Date();
   return date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString();
 }
 
 function highlightCurrentDay(){
-  let date = new Date();
-  let day = date.getDay();
+  var date = new Date();
+  var day = date.getDay();
 
   $('#table-'+day).addClass('teal');
 }
 
 function getWeek(){
-  let now = new Date();
-  let september = new Date(now.getFullYear()+"-09-01");
+  var now = new Date();
+  var september = new Date(now.getFullYear()+"-09-01");
 
   if(september.getWeek() % 2 == 0){
     if((now.getWeek() + 1) % 2 == 0){
@@ -162,10 +164,10 @@ function getWeek(){
 }
 
 function highlightCurrentClass(){
-  let date = new Date();
-  let day = date.getDay();
+  var date = new Date();
+  var day = date.getDay();
 
-  let time = (Math.floor(Date.now()/1000) + 60*60*3) % 86400;
+  var time = (Math.floor(Date.now()/1000) + 60*60*3) % 86400;
 
   if(32400 < time && time < 37800){
     $('#table-'+day+'-0').addClass('active');
@@ -205,7 +207,7 @@ function highlightCurrentClass(){
 }
 
 function renderDay(day, classes){
-  let days = {
+  var days = {
     0 : 'Понедельник',
     1 : 'Вторник',
     2 : 'Среда',
@@ -214,7 +216,7 @@ function renderDay(day, classes){
     5 : 'Суббота'
   };
 
-  let time = {
+  var time = {
     0 : '9:00 - 10:30',
     1 : '10:40 - 12:10',
     2 : '13:00 - 14:30',
@@ -223,7 +225,7 @@ function renderDay(day, classes){
     5 : '18:00 - 19:30'
   };
 
-  let types = {
+  var types = {
     0 : 'ЛК',
     1 : 'ПР',
     2 : 'ЛАБ',
@@ -232,13 +234,13 @@ function renderDay(day, classes){
     20 : 'ЛАБ + ЛК'
   };
 
-  let classes_model = '';
+  var classes_model = '';
 
-  for(let i = 0; i < classes.length; i++){
-    let name = classes[i][week].name ? classes[i][week].name : "-";
-    let room = classes[i][week].room ? classes[i][week].room : "-";
-    let teacher = classes[i][week].teacher ? classes[i][week].teacher : "-";
-    let type = types[classes[i][week].type] ? ", " + types[classes[i][week].type] : "";
+  for(var i = 0; i < classes.length; i++){
+    var name = classes[i][week].name ? classes[i][week].name : "-";
+    var room = classes[i][week].room ? classes[i][week].room : "-";
+    var teacher = classes[i][week].teacher ? classes[i][week].teacher : "-";
+    var type = types[classes[i][week].type] ? ", " + types[classes[i][week].type] : "";
 
     classes_model += '<tr id="table-'+day+'-'+i+'">\
       <td>'+(i+1)+'</td>\
@@ -249,7 +251,7 @@ function renderDay(day, classes){
     </tr>';
   }
 
-  let model = '<div class="column">\
+  var model = '<div class="column">\
     <h3 class="header">'+days[day]+'</h3>\
     <table class="ui compact unstackable striped table" id="table-'+day+'">\
       <thead>\
