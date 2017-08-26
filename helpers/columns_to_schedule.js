@@ -107,6 +107,16 @@ function convertGroupName(name){
   name = name.replace('А','a');
   name = name.replace('В','v');
   name = name.replace('Н','n');
+  name = name.replace('Т','t');
+  name = name.replace('Ш','sh');
+  name = name.replace('Х','h');
+  name = name.replace('Л','l');
+  name = name.replace('С','s');
+  name = name.replace('Э','e');
+  name = name.replace('У','u');
+  name = name.replace('Д','d');
+  name = name.replace('М','m');
+  name = name.replace('Р','r');
 
   return name;
 }

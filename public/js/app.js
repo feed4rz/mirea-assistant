@@ -112,6 +112,16 @@ function convertGroupName(name){
   name = name.replace('a','А');
   name = name.replace('v','В');
   name = name.replace('n','Н');
+  name = name.replace('t','Т');
+  name = name.replace('sh','Ш');
+  name = name.replace('h','Х');
+  name = name.replace('l','Л');
+  name = name.replace('s','С');
+  name = name.replace('e','Э');
+  name = name.replace('u','У');
+  name = name.replace('d','Д');
+  name = name.replace('m','М');
+  name = name.replace('r','Р');
 
   return name;
 }
