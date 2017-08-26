@@ -23,7 +23,10 @@ API.prototype.api_call = function(url, data, callback) {
 
 API.prototype.institute_get_type = function(type){
   var types = {
-    0 : 'Институт информационных технологий'
+    0 : 'Институт информационных технологий',
+    1 : 'Физико-технологический институт',
+    2 : 'Институт инновационных технологий и государственного управления',
+    3 : 'Институт кибернетики'
   };
 
   return types[type];
