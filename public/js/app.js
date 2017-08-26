@@ -138,7 +138,7 @@ function getTerm(){
 }
 
 function highlightCurrentDay(){
-  let date = new Date(1503543173200);
+  let date = new Date();
   let day = date.getDay();
 
   $('#table-'+day).addClass('teal');
@@ -164,7 +164,7 @@ function getWeek(){
 }
 
 function highlightCurrentClass(){
-  let date = new Date(1503543173200);
+  let date = new Date();
   let day = date.getDay();
 
   let time = (Math.floor(Date.now()/1000) + 60*60*3) % 86400;
