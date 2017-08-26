@@ -3,9 +3,77 @@ Date.prototype.getWeek = function () {
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 };
 
+let institutes = {};
+let institute = null;
+let group = null;
+let week = 'odd';
+
 $(document).ready(() => {
-  /*
-  api.schedule_get({ term : 172, institute : 0, group : 'ikbo-02-17' }, (err, res) => {
+  loading(true);
+
+  api.group_get_all((err, res) => {
+    if(err){
+      console.log(err);
+    } else {
+      for(let i = 0; i < res.groups.length; i++){
+        if(!institutes[res.groups[i].institute]) institutes[res.groups[i].institute] = [];
+
+        institutes[res.groups[i].institute].push(res.groups[i].group);
+      }
+
+      $('#institute_value').html('');
+
+      for(let key in institutes){
+        let model = '<div class="item" data-value="'+key+'" onclick="selectInstitute('+key+')">'+api.institute_get_type(key)+'</div>';
+
+        $('#institute_value').append(model);
+      }
+
+      $('#institute_dropdown').dropdown();
+
+      enable('institute', false);
+
+      loadSelected();
+    }
+
+    loading(false);
+  });
+});
+
+function selectInstitute(inst){
+  let groups = institutes[inst];
+
+  institute = inst;
+
+  $('#group_value').html('');
+
+  for(let i = 0; i < groups.length; i++){
+    let model = '<div class="item" data-value="'+groups[i]+'" onclick="selectGroup(\''+groups[i]+'\')">'+convertGroupName(groups[i])+'</div>';
+
+    $('#group_value').append(model);
+  }
+
+  $('#group_dropdown').dropdown();
+
+  enable('group', false);
+}
+
+function selectGroup(grp){
+  group = grp;
+
+  saveSelected();
+
+  $('#week_dropdown').dropdown();
+
+  $('[data-value="'+getWeek()+'"]').click();
+
+  enable('week', false);
+}
+
+function selectWeek(type){
+  week = type;
+
+  api.schedule_get({ term : getTerm(), institute : institute, group : group }, (err, res) => {
     if(err){
       console.log(err);
     } else {
@@ -18,8 +86,53 @@ $(document).ready(() => {
       }
     }
   });
-  */
-});
+}
+
+function saveSelected(){
+  localStorage.setItem('institute', institute);
+  localStorage.setItem('group', group);
+}
+
+function loadSelected(){
+  if(!localStorage.getItem("group")) return;
+
+  $('[onclick="selectInstitute('+localStorage.getItem("institute")+')"]').click();
+
+  $('[onclick="selectGroup(\''+localStorage.getItem("group")+'\')"]').click();
+}
+
+function convertGroupName(name){
+  name = name.replace('i','И');
+  name = name.replace('k','К');
+  name = name.replace('b','Б');
+  name = name.replace('o','О');
+  name = name.replace('a','А');
+  name = name.replace('v','В');
+  name = name.replace('n','Н');
+
+  return name;
+}
+
+function loading(load){
+  $('#form').removeClass('loading');
+
+  if(load){
+    $('#form').addClass('loading');
+  }
+}
+
+function enable(field, e){
+  $('#'+field).removeClass('disabled');
+
+  if(e){
+    $('#'+field).addClass('disabled');
+  }
+}
+
+function getTerm(){
+  let date = new Date();
+  return date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString();
+}
 
 function getWeek(){
   let now = new Date();
@@ -41,8 +154,6 @@ function getWeek(){
 }
 
 function renderDay(day, classes){
-  let week = getWeek();
-
   let days = {
     0 : 'Понедельник',
     1 : 'Вторник',

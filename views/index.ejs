@@ -9,9 +9,9 @@
     <div class="container">
       <h2 class="header" id="logo">MIREA Assistant</h2>
       <div class="ui compact form" id="form">
-        <div class="fields" id="institute">
+        <div class="disabled fields" id="institute">
           <div class="field">
-            <label></label>
+            <label>Институт</label>
             <div class="ui selection dropdown" id="institute_dropdown">
               <input type="hidden" name="gender">
               <i class="dropdown icon"></i>
@@ -20,8 +20,8 @@
               </div>
             </div>
           </div>
-          <div class="field" id="group">
-            <label></label>
+          <div class="disabled field" id="group">
+            <label>Группа</label>
             <div class="ui selection dropdown" id="group_dropdown">
               <input type="hidden" name="gender">
               <i class="dropdown icon"></i>
@@ -30,15 +30,15 @@
               </div>
             </div>
           </div>
-          <div class="field" id="week">
-            <label></label>
+          <div class="disabled field" id="week">
+            <label>Неделя</label>
             <div class="ui selection dropdown" id="week_dropdown">
               <input type="hidden" name="gender">
               <i class="dropdown icon"></i>
               <div class="default text">Неделя</div>
               <div class="menu" id="value">
-                <div class="item" data-value="odd">Нечетная</div>
-                <div class="item" data-value="even">Четная</div>
+                <div class="item" data-value="odd" onclick="selectWeek('odd')">Нечетная</div>
+                <div class="item" data-value="even" onclick="selectWeek('even')">Четная</div>
               </div>
             </div>
           </div>
