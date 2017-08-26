@@ -29,6 +29,8 @@ $(document).ready(function(){
         $('#institute_value').append(model);
       }
 
+      $('#institute_dropdown').dropdown('restore defaults');
+
       $('#institute_dropdown').dropdown();
 
       enable('institute', false);
@@ -53,6 +55,8 @@ function selectInstitute(inst){
     $('#group_value').append(model);
   }
 
+  $('#group_dropdown').dropdown('restore defaults');
+
   $('#group_dropdown').dropdown();
 
   enable('group', false);
@@ -62,6 +66,8 @@ function selectGroup(grp){
   group = grp;
 
   saveSelected();
+
+  $('#week_dropdown').dropdown('restore defaults');
 
   $('#week_dropdown').dropdown();
 
