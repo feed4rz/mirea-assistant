@@ -1,0 +1,12 @@
+.container {
+  padding:10px !important;
+}
+
+#select_group {
+  margin-top:5px;
+}
+
+#schedule {
+  margin-top:5px;
+  overflow-x:auto;
+}
