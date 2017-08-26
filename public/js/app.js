@@ -4,6 +4,7 @@ Date.prototype.getWeek = function () {
 };
 
 $(document).ready(() => {
+  /*
   api.schedule_get({ term : 172, institute : 0, group : 'ikbo-02-17' }, (err, res) => {
     if(err){
       console.log(err);
@@ -17,6 +18,7 @@ $(document).ready(() => {
       }
     }
   });
+  */
 });
 
 function getWeek(){
