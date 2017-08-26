@@ -105,26 +105,7 @@ function loadSelected(){
 }
 
 function convertGroupName(name){
-  name = name.replace(/ /g,'');
-  name = name.replace(/\i/g,'И');
-  name = name.replace(/\k/g,'К');
-  name = name.replace(/\b/g,'Б');
-  name = name.replace(/\o/g,'О');
-  name = name.replace(/\a/g,'А');
-  name = name.replace(/\v/g,'В');
-  name = name.replace(/\n/g,'Н');
-  name = name.replace(/\t/g,'Т');
-  name = name.replace(/\sh/g,'Ш');
-  name = name.replace(/\h/g,'Х');
-  name = name.replace(/\l/g,'Л');
-  name = name.replace(/\s/g,'С');
-  name = name.replace(/\e/g,'Э');
-  name = name.replace(/\u/g,'У');
-  name = name.replace(/\d/g,'Д');
-  name = name.replace(/\m/g,'М');
-  name = name.replace(/\r/g,'Р');
-  name = name.replace(/\g/g,'Г');
-  name = name.replace(/\p/g,'П');
+  name = translit(name, -5).toUpperCase();
 
   return name;
 }

@@ -12,6 +12,7 @@ const institute = 3;
 const columns = require('../data/schedule_columns_raw.json');
 const fs = require('fs');
 const random = require('./random.js');
+const translit = require('./translit.js');
 
 let schedules = [];
 
@@ -100,28 +101,7 @@ for(let key in columns){
 }
 
 function convertGroupName(name){
-  console.log(name);
-
-  name = name.replace(/ /g,'');
-  name = name.replace(/И/g,'i');
-  name = name.replace(/К/g,'k');
-  name = name.replace(/Б/g,'b');
-  name = name.replace(/О/g,'o');
-  name = name.replace(/А/g,'a');
-  name = name.replace(/В/g,'v');
-  name = name.replace(/Н/g,'n');
-  name = name.replace(/Т/g,'t');
-  name = name.replace(/Ш/g,'sh');
-  name = name.replace(/Х/g,'h');
-  name = name.replace(/Л/g,'l');
-  name = name.replace(/С/g,'s');
-  name = name.replace(/Э/g,'e');
-  name = name.replace(/У/g,'u');
-  name = name.replace(/Д/g,'d');
-  name = name.replace(/М/g,'m');
-  name = name.replace(/Р/g,'r');
-  name = name.replace(/Г/g,'g');
-  name = name.replace(/П/g,'p');
+  name = translit(name, 5).toLowerCase();
 
   return name;
 }
