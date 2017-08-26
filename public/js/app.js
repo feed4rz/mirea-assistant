@@ -1,5 +1,5 @@
 Date.prototype.getWeek = function () {
-    var onejan = new Date(this.getFullYear(), 0, 1);
+    let onejan = new Date(this.getFullYear(), 0, 1);
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 };
 
@@ -84,6 +84,9 @@ function selectWeek(type){
       for(let i = 0; i < schedule.days.length; i++){
         renderDay(i, schedule.days[i]);
       }
+
+      highlightCurrentDay();
+      highlightCurrentClass();
     }
   });
 }
@@ -134,6 +137,13 @@ function getTerm(){
   return date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString();
 }
 
+function highlightCurrentDay(){
+  let date = new Date(1503543173200);
+  let day = date.getDay();
+
+  $('#table-'+day).addClass('teal');
+}
+
 function getWeek(){
   let now = new Date();
   let september = new Date(now.getFullYear()+"-09-01");
@@ -153,6 +163,49 @@ function getWeek(){
   }
 }
 
+function highlightCurrentClass(){
+  let date = new Date(1503543173200);
+  let day = date.getDay();
+
+  let time = (Math.floor(Date.now()/1000) + 60*60*3) % 86400;
+
+  if(32400 < time && time < 37800){
+    $('#table-'+day+'-0').addClass('active');
+
+    console.log(day, 0);
+  }
+
+  if(38400 < time && time < 43800){
+    $('#table-'+day+'-1').addClass('active');
+
+    console.log(day, 1);
+  }
+
+  if(46800 < time && time < 52200){
+    $('#table-'+day+'-2').addClass('active');
+
+    console.log(day, 2);
+  }
+
+  if(52800 < time && time < 58200){
+    $('#table-'+day+'-3').addClass('active');
+
+    console.log(day, 3);
+  }
+
+  if(58800 < time && time < 64200){
+    $('#table-'+day+'-4').addClass('active');
+
+    console.log(day, 4);
+  }
+
+  if(64800 < time && time < 70200){
+    $('#table-'+day+'-5').addClass('active');
+
+    console.log(day, 5);
+  }
+}
+
 function renderDay(day, classes){
   let days = {
     0 : 'Понедельник',
@@ -164,7 +217,7 @@ function renderDay(day, classes){
   };
 
   let time = {
-    0 : '9:30 - 10:30',
+    0 : '9:00 - 10:30',
     1 : '10:40 - 12:10',
     2 : '13:00 - 14:30',
     3 : '14:40 - 16:10',
@@ -187,28 +240,26 @@ function renderDay(day, classes){
     let name = classes[i][week].name ? classes[i][week].name : "-";
     let room = classes[i][week].room ? classes[i][week].room : "-";
     let teacher = classes[i][week].teacher ? classes[i][week].teacher : "-";
-    let type = types[classes[i][week].type] ? types[classes[i][week].type] : "-";
+    let type = types[classes[i][week].type] ? ", " + types[classes[i][week].type] : "";
 
-    classes_model += '<tr>\
+    classes_model += '<tr id="table-'+day+'-'+i+'">\
       <td>'+(i+1)+'</td>\
       <td>'+time[i]+'</td>\
-      <td>'+name+'</td>\
+      <td>'+name+type+'</td>\
       <td>'+room+'</td>\
-      <td>'+type+'</td>\
       <td>'+teacher+'</td>\
     </tr>';
   }
 
   let model = '<div class="column">\
     <h3 class="header">'+days[day]+'</h3>\
-    <table class="ui compact unstackable striped table">\
+    <table class="ui compact unstackable striped table" id="table-'+day+'">\
       <thead>\
         <tr>\
           <th>#</th>\
           <th><i class="wait icon"></i></th>\
           <th><i class="book icon"></i></th>\
           <th><i class="map icon"></i></th>\
-          <th>Тип</th>\
           <th><i class="user icon"></i></th>\
         </tr>\
       </thead>\
