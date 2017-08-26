@@ -47,6 +47,8 @@ function selectInstitute(inst){
 
   institute = inst;
 
+  $('#schedule').text('');
+
   $('#group_value').html('');
 
   for(var i = 0; i < groups.length; i++){
