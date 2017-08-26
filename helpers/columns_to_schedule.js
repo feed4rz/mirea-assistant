@@ -2,7 +2,7 @@
 
 /* Config */
 const term = 172;
-const institute = 0;
+const institute = 3;
 
 /* Dependencies */
 /*
@@ -95,28 +95,33 @@ for(let key in columns){
     teachers = [];
     rooms = [];
 
-    group = null;
+    //group = null;
   }
 }
 
 function convertGroupName(name){
-  name = name.replace('И','i');
-  name = name.replace('К','k');
-  name = name.replace('Б','b');
-  name = name.replace('О','o');
-  name = name.replace('А','a');
-  name = name.replace('В','v');
-  name = name.replace('Н','n');
-  name = name.replace('Т','t');
-  name = name.replace('Ш','sh');
-  name = name.replace('Х','h');
-  name = name.replace('Л','l');
-  name = name.replace('С','s');
-  name = name.replace('Э','e');
-  name = name.replace('У','u');
-  name = name.replace('Д','d');
-  name = name.replace('М','m');
-  name = name.replace('Р','r');
+  console.log(name);
+
+  name = name.replace(/ /g,'');
+  name = name.replace(/И/g,'i');
+  name = name.replace(/К/g,'k');
+  name = name.replace(/Б/g,'b');
+  name = name.replace(/О/g,'o');
+  name = name.replace(/А/g,'a');
+  name = name.replace(/В/g,'v');
+  name = name.replace(/Н/g,'n');
+  name = name.replace(/Т/g,'t');
+  name = name.replace(/Ш/g,'sh');
+  name = name.replace(/Х/g,'h');
+  name = name.replace(/Л/g,'l');
+  name = name.replace(/С/g,'s');
+  name = name.replace(/Э/g,'e');
+  name = name.replace(/У/g,'u');
+  name = name.replace(/Д/g,'d');
+  name = name.replace(/М/g,'m');
+  name = name.replace(/Р/g,'r');
+  name = name.replace(/Г/g,'g');
+  name = name.replace(/П/g,'p');
 
   return name;
 }

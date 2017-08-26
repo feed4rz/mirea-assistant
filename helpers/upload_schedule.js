@@ -4,7 +4,7 @@
 if(!process.argv[2]) throw 'Please, provide secret as a parameter';
 
 const secret = process.argv[2];
-const host = 'localhost';
+const host = 'mirea.feed4rz.ru';
 
 /* Dependencies */
 const schedule = require('../data/schedule.json');
@@ -107,19 +107,19 @@ function groupNew(group, callback){
     }
   });
 }
-
+/*
 scheduleRemove((err, res) => {
   if(err){
     throw err;
   } else {
 		console.log('Current schedule: clear');
-		
+
     groupRemove((err, res) => {
       if(err){
         throw err;
       } else {
 				console.log('Current group list: clear');
-				
+				*/
         for(let i = 0; i < schedule.length; i++){
           scheduleNew(schedule[i], (err, res) => {});
 
@@ -131,9 +131,9 @@ scheduleRemove((err, res) => {
 
           groupNew(group, (err, res) => {});
         }
-				
-				console.log('Done');
+
+				console.log('Done');/*
       }
     });
   }
-});
+});*/

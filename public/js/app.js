@@ -105,23 +105,26 @@ function loadSelected(){
 }
 
 function convertGroupName(name){
-  name = name.replace('i','И');
-  name = name.replace('k','К');
-  name = name.replace('b','Б');
-  name = name.replace('o','О');
-  name = name.replace('a','А');
-  name = name.replace('v','В');
-  name = name.replace('n','Н');
-  name = name.replace('t','Т');
-  name = name.replace('sh','Ш');
-  name = name.replace('h','Х');
-  name = name.replace('l','Л');
-  name = name.replace('s','С');
-  name = name.replace('e','Э');
-  name = name.replace('u','У');
-  name = name.replace('d','Д');
-  name = name.replace('m','М');
-  name = name.replace('r','Р');
+  name = name.replace(/ /g,'');
+  name = name.replace(/\i/g,'И');
+  name = name.replace(/\k/g,'К');
+  name = name.replace(/\b/g,'Б');
+  name = name.replace(/\o/g,'О');
+  name = name.replace(/\a/g,'А');
+  name = name.replace(/\v/g,'В');
+  name = name.replace(/\n/g,'Н');
+  name = name.replace(/\t/g,'Т');
+  name = name.replace(/\sh/g,'Ш');
+  name = name.replace(/\h/g,'Х');
+  name = name.replace(/\l/g,'Л');
+  name = name.replace(/\s/g,'С');
+  name = name.replace(/\e/g,'Э');
+  name = name.replace(/\u/g,'У');
+  name = name.replace(/\d/g,'Д');
+  name = name.replace(/\m/g,'М');
+  name = name.replace(/\r/g,'Р');
+  name = name.replace(/\g/g,'Г');
+  name = name.replace(/\p/g,'П');
 
   return name;
 }
