@@ -22,7 +22,7 @@ API.prototype.api_call = function(url, data, callback) {
 }
 
 API.prototype.institute_get_type = function(type){
-  let types = {
+  var types = {
     0 : 'Институт информационных технологий'
   };
 
