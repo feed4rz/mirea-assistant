@@ -31,8 +31,6 @@ $(document).ready(() => {
 
       $('#institute_dropdown').dropdown();
 
-      enable('institute', false);
-
       loadSelected();
     }
 
