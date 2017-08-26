@@ -21,6 +21,14 @@ class API {
     });
   }
 
+  institute_get_type(type){
+    let types = {
+      0 : 'Институт информационных технологий'
+    };
+
+    return types[type];
+  }
+
   group_get_all(callback){
     this.api_call('/api/group/get/all', {}, (err, res) => {
       if(err){
