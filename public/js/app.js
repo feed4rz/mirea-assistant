@@ -147,9 +147,14 @@ function getTerm(){
   return date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString();
 }
 
+var mod = function (num, mod) {
+  var remain = num % mod;
+  return Math.floor(remain >= 0 ? remain : remain + mod);
+};
+
 function highlightCurrentDay(){
   var date = new Date();
-  var day = date.getDay();
+  var day = mod(date.getDay() - 1, 7);
 
   $('#table-'+day).addClass('teal');
 }
