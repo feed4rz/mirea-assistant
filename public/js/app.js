@@ -180,7 +180,7 @@ function getWeek(){
 
 function highlightCurrentClass(){
   var date = new Date();
-  var day = date.getDay();
+  var day = mod(date.getDay() - 1, 7);
 
   var time = (Math.floor(Date.now()/1000) + 60*60*3) % 86400;
 
