@@ -21,6 +21,14 @@ $(document).ready(function(){
         institutes[res.groups[i].institute].push(res.groups[i].group);
       }
 
+      for(var key in institutes){
+        institutes[key].sort(function(a, b){
+          if(a < b) return -1;
+          if(a > b) return 1;
+          return 0;
+        });
+      }
+
       $('#institute_value').html('');
 
       for(var key in institutes){

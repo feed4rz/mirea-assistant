@@ -2,7 +2,7 @@
 
 /* Config */
 const term = 172;
-const institute = 3;
+const institute = 7;
 
 /* Dependencies */
 /*
