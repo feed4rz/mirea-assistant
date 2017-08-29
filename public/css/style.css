@@ -19,3 +19,31 @@
 #form {
   margin-top:10px;
 }
+
+@media (max-width: 767px) {
+  .mobile-centered {
+    /* display:block !important; */
+    margin-left:auto !important;
+    margin-right:auto !important;
+    align:center !important;
+    text-align: center !important;
+  }
+
+  .mobile-hidden {
+    display:none !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .mobile-centered-critical {
+    display:block !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    align:center !important;
+    text-align: center !important;
+  }
+
+  .mobile-hidden-critical {
+    display:none !important;
+  }
+}
