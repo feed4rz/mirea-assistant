@@ -286,7 +286,3 @@ function renderDay(day, classes){
 
   $('#schedule').append(model);
 }
-
-function about(){
-  $('#about-modal').modal('show');
-}
