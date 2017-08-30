@@ -52,3 +52,4 @@ node_modules/
 # Some JSON files
 schedule.json
 schedule_columns_raw.json
+schedule.xlsx
