@@ -107,8 +107,14 @@ router.post('/remove/all', (req, res) => {
   let secret_hash = global.config.secret_hash;
 
   if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
+	
+	let query = {};
+	if(req.body.institute && req.body.term) query = {
+		institute : req.body.institute,
+		term : req.body.term
+	};
 
-  Group.remove((err) => {
+  Group.remove(query, (err) => {
     if(err){
       res.json({ success : false, err : err });
     } else {

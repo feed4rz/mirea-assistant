@@ -10,9 +10,11 @@ const host = 'mirea.feed4rz.ru';
 const schedule = require('../data/schedule.json');
 const request = require('request');
 
-function scheduleRemove(callback){
+function scheduleRemove(term, institute, callback){
   let json = {
-    secret : secret
+    secret : secret,
+		term : term,
+		institute : institute
   };
 
   request({ method : 'POST', url : `http://${host}/api/schedule/remove/all`, json : json }, (e, r, b) => {
@@ -59,9 +61,11 @@ function scheduleNew(schedule, callback){
   });
 }
 
-function groupRemove(callback){
+function groupRemove(term, institute, callback){
   let json = {
-    secret : secret
+    secret : secret,
+		term : term,
+		institute : institute
   };
 
   request({ method : 'POST', url : `http://${host}/api/group/remove/all`, json : json }, (e, r, b) => {
@@ -107,19 +111,19 @@ function groupNew(group, callback){
     }
   });
 }
-/*
-scheduleRemove((err, res) => {
+
+scheduleRemove(schedule[0].term, schedule[0].institute, (err, res) => {
   if(err){
     throw err;
   } else {
 		console.log('Current schedule: clear');
 
-    groupRemove((err, res) => {
+    groupRemove(schedule[0].term, schedule[0].institute, (err, res) => {
       if(err){
         throw err;
       } else {
 				console.log('Current group list: clear');
-				*/
+				
         for(let i = 0; i < schedule.length; i++){
           scheduleNew(schedule[i], (err, res) => {});
 
@@ -132,8 +136,8 @@ scheduleRemove((err, res) => {
           groupNew(group, (err, res) => {});
         }
 
-				console.log('Done');/*
+				console.log('Done');
       }
     });
   }
-});*/
+});
