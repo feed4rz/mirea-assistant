@@ -12,6 +12,10 @@
   overflow-x:auto;
 }
 
+#achievements {
+  margin-top:10px;
+}
+
 #menu {
   margin-left:15px;
 }
