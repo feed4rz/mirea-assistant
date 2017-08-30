@@ -36,6 +36,10 @@
   .mobile-hidden {
     display:none !important;
   }
+
+  #menu {
+    margin-left:0px;
+  }
 }
 
 @media (max-width: 450px) {
