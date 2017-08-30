@@ -112,7 +112,7 @@ router.post('/remove/all', (req, res) => {
   if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
 	
 	let query = {};
-	if(req.body.institute && req.body.term) query = {
+	if((req.body.institute || req.body.institute == 0) && req.body.term) query = {
 		institute : req.body.institute,
 		term : req.body.term
 	};
