@@ -23,6 +23,7 @@
     "fs": "0.0.1-security",
     "mongoose": "^4.11.8",
     "random-js": "^1.0.8",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "xlsx": "^0.11.3"
   }
 }
