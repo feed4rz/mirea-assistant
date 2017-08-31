@@ -5,6 +5,7 @@
 
     <%- include('layout/head') -%>
 
+    <script src="/js/classes.js"></script>
     <script src="/js/vr.js"></script>
   </head>
   <body>
@@ -138,6 +139,93 @@
           <div class="ui bottom attached indicating progress">
             <div class="bar"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="ui tiny modal" id="score">
+        <div class="header">Ввод баллов за <span id="term">?</span> семестр</div>
+        <div class="content">
+          <div class="ui form" id="form">
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-1">?</label>
+                <div class="ui compact selection dropdown">
+                  <input type="hidden" id="class-1-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-2">?</label>
+                <div class="ui compact selection dropdown">
+                  <input type="hidden" id="class-2-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-3">?</label>
+                <div class="ui compact selection dropdown">
+                  <input type="hidden" id="class-3-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="compact field mobile-centered">
+                <label id="class-4">?</label>
+                <div class="ui compact selection dropdown">
+                  <input type="hidden" id="class-4-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-5">?</label>
+                <div class="ui compact selection dropdown">
+                  <input type="hidden" id="class-5-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui approve button" onclick="save()">Сохранить</div>
+          <div class="ui cancel button">Закрыть</div>
         </div>
       </div>
 
