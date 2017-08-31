@@ -61,10 +61,9 @@ function scheduleNew(schedule, callback){
   });
 }
 
-function groupRemove(term, institute, callback){
+function groupRemove(institute, callback){
   let json = {
     secret : secret,
-		term : term,
 		institute : institute
   };
 
@@ -118,12 +117,12 @@ scheduleRemove(schedule[0].term, schedule[0].institute, (err, res) => {
   } else {
 		console.log('Current schedule: clear');
 
-    groupRemove(schedule[0].term, schedule[0].institute, (err, res) => {
+    groupRemove(schedule[0].institute, (err, res) => {
       if(err){
         throw err;
       } else {
 				console.log('Current group list: clear');
-				
+
         for(let i = 0; i < schedule.length; i++){
           scheduleNew(schedule[i], (err, res) => {});
 
