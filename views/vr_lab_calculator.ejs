@@ -14,10 +14,40 @@
 
       <%- include('layout/menu') -%>
 
-      <div class="ui four stackable cards" id="achievements">
+      <div class="ui compact form" id="form">
+        <div class="fields" id="specialty">
+          <div class="field mobile-centered">
+            <label>Направление</label>
+            <div class="ui selection dropdown" id="specialty_dropdown">
+              <input type="hidden" id="specialty_value">
+              <i class="dropdown icon"></i>
+              <div class="default text">Направление</div>
+              <div class="menu" id="specialty_select">
+                <div class="item" data-value="Информатика и вычислительная техника" onclick="selectSpecialty('Информатика и вычислительная техника')">Информатика и вычислительная техника</div>
+                <div class="item" data-value="Прикладная информатика" onclick="selectSpecialty('Прикладная информатика')">Прикладная информатика</div>
+                <div class="item" data-value="Программная инженерия" onclick="selectSpecialty('Программная инженерия')">Программная инженерия</div>
+                <div class="item" data-value="Автоматизация технологических процессов и производств" onclick="selectSpecialty('Автоматизация технологических процессов и производств')">Автоматизация технологических процессов и производств</div>
+              </div>
+            </div>
+          </div>
+          <div class="field mobile-centered" id="profile">
+            <label>Профиль</label>
+            <div class="ui selection dropdown" id="profile_dropdown">
+              <input type="hidden" id="profile_value">
+              <i class="dropdown icon"></i>
+              <div class="default text">Профиль</div>
+              <div class="menu" id="profile_select">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui four stackable cards" id="achievements" style="display:none;">
         <div class="card">
           <div class="image">
-            <img src="/img/vr/oculus.png">
+            <img src="/img/vr/1.png">
           </div>
           <div class="content">
             <div class="header">Допуск</div>
@@ -149,7 +179,7 @@
             <div class="fields">
               <div class="field mobile-centered">
                 <label id="class-1">?</label>
-                <div class="ui compact selection dropdown">
+                <div class="ui compact selection dropdown" id="class-1-dropdown">
                   <input type="hidden" id="class-1-value">
                   <i class="dropdown icon"></i>
                   <div class="default text">Оценка</div>
@@ -164,7 +194,7 @@
             <div class="fields">
               <div class="field mobile-centered">
                 <label id="class-2">?</label>
-                <div class="ui compact selection dropdown">
+                <div class="ui compact selection dropdown" id="class-2-dropdown">
                   <input type="hidden" id="class-2-value">
                   <i class="dropdown icon"></i>
                   <div class="default text">Оценка</div>
@@ -179,7 +209,7 @@
             <div class="fields">
               <div class="field mobile-centered">
                 <label id="class-3">?</label>
-                <div class="ui compact selection dropdown">
+                <div class="ui compact selection dropdown" id="class-3-dropdown">
                   <input type="hidden" id="class-3-value">
                   <i class="dropdown icon"></i>
                   <div class="default text">Оценка</div>
@@ -194,7 +224,7 @@
             <div class="fields">
               <div class="compact field mobile-centered">
                 <label id="class-4">?</label>
-                <div class="ui compact selection dropdown">
+                <div class="ui compact selection dropdown" id="class-4-dropdown">
                   <input type="hidden" id="class-4-value">
                   <i class="dropdown icon"></i>
                   <div class="default text">Оценка</div>
@@ -209,7 +239,7 @@
             <div class="fields">
               <div class="field mobile-centered">
                 <label id="class-5">?</label>
-                <div class="ui compact selection dropdown">
+                <div class="ui compact selection dropdown" id="class-5-dropdown">
                   <input type="hidden" id="class-5-value">
                   <i class="dropdown icon"></i>
                   <div class="default text">Оценка</div>
