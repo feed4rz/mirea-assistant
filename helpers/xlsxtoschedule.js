@@ -121,6 +121,7 @@ for(let key in columns){
 }
 
 function convertGroupName(name){
+  name = name.replace(/ /g,'');
   name = translit(name, 5).toLowerCase();
 
   return name;
