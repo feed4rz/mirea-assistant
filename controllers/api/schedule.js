@@ -1,5 +1,5 @@
 /* Dependencies */
-const express = require('express')
+const express = require('express');
 let router = express.Router();
 
 /* Helper dependencies */
@@ -110,7 +110,7 @@ router.post('/remove/all', (req, res) => {
   let secret_hash = global.config.secret_hash;
 
   if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
-	
+
 	let query = {};
 	if((req.body.institute || req.body.institute == 0) && req.body.term) query = {
 		institute : req.body.institute,
