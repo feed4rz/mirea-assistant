@@ -14,6 +14,8 @@
 
       <%- include('layout/menu') -%>
 
+      <%- include('layout/message') -%>
+
       <div class="ui compact form" id="form">
         <div class="fields" id="specialty">
           <div class="field mobile-centered">
@@ -44,13 +46,13 @@
         </div>
       </div>
 
-      <div class="ui four stackable cards" id="achievements" style="display:none;">
+      <div class="ui four stackable cards" id="achievements" style="display:none !important;">
         <div class="card">
           <div class="image">
             <img src="/img/vr/1.png">
           </div>
           <div class="content">
-            <div class="header">Допуск</div>
+            <div class="header"><i class="lock icon" id="term-1-lock"></i> Допуск</div>
             <div class="meta">
               <a>1 семестр</a>
             </div>
@@ -71,7 +73,7 @@
             <img src="/img/vr/oculus.png">
           </div>
           <div class="content">
-            <div class="header">Oculus Rift</div>
+            <div class="header"><i class="lock icon" id="term-2-lock"></i> Oculus Rift</div>
             <div class="meta">
               <a>2 семестр</a>
             </div>
@@ -92,7 +94,7 @@
             <img src="/img/vr/vive.png">
           </div>
           <div class="content">
-            <div class="header">HTC Vive</div>
+            <div class="header"><i class="lock icon" id="term-3-lock"></i> HTC Vive</div>
             <div class="meta">
               <a>3 семестр</a>
             </div>
@@ -113,7 +115,7 @@
             <img src="/img/vr/epson.png">
           </div>
           <div class="content">
-            <div class="header">Epson BT-300</div>
+            <div class="header"><i class="lock icon" id="term-4-lock"></i> Epson BT-300</div>
             <div class="meta">
               <a>4 семестр</a>
             </div>
@@ -134,7 +136,7 @@
             <img src="/img/vr/hololens.png">
           </div>
           <div class="content">
-            <div class="header">Microsoft Hololens</div>
+            <div class="header"><i class="lock icon" id="term-5-lock"></i> Microsoft Hololens</div>
             <div class="meta">
               <a>5 семестр</a>
             </div>
@@ -155,7 +157,7 @@
             <img src="/img/vr/kat.png">
           </div>
           <div class="content">
-            <div class="header">Kat Walk</div>
+            <div class="header"><i class="lock icon" id="term-6-lock"></i> Kat Walk</div>
             <div class="meta">
               <a>6 семестр</a>
             </div>
