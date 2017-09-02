@@ -60,3 +60,13 @@ API.prototype.schedule_get = function(params, callback){
     }
   });
 }
+
+API.prototype.message_get_last = function(callback){
+  this.api_call('/api/message/get/last', {}, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}

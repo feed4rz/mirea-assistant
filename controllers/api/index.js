@@ -5,6 +5,7 @@ let router = express.Router();
 /* Enabling other controllers */
 router.use('/schedule', require('./schedule.js'));
 router.use('/group', require('./group.js'));
+router.use('/message', require('./message.js'));
 
 const start = Math.floor(Date.now()/1000);
 
