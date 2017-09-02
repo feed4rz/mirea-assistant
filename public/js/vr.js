@@ -4,8 +4,58 @@ $(document).ready(function(){
   $('#specialty_dropdown').dropdown();
 });
 
+var marks = $.extend(true, {}, classes);;
+
+function save(){
+  var specialty = $('#specialty_value').val();
+  var profile = $('#profile_value').val();
+  var term = $('#term').text();
+
+  marks[specialty][profile][term][0] = Number($('#class-1-value').val() || "0");
+  marks[specialty][profile][term][1] = Number($('#class-2-value').val() || "0");
+  marks[specialty][profile][term][2] = Number($('#class-3-value').val() || "0");
+  marks[specialty][profile][term][3] = Number($('#class-4-value').val() || "0");
+  marks[specialty][profile][term][4] = Number($('#class-5-value').val() || "0");
+
+  updateProgress();
+}
+
+function updateProgress(){
+  var value = 0;
+  for(var key in marks){
+    for(var keey in marks[key]){
+      for(var i = 1; i < 8; i++){
+        for(var j = 0;j < marks[key][keey][i].length; j++){
+          if(typeof marks[key][keey][i][j] != 'number') continue;
+
+          switch (j) {
+            case 0:
+              value += (marks[key][keey][i][j] - 2) * 2;
+              break;
+            case 1:
+              value += (marks[key][keey][i][j] - 2) * 2;
+              break;
+            case 2:
+              value += marks[key][keey][i][j] - 2;
+              break;
+            case 3:
+              value += marks[key][keey][i][j] - 2;
+              break;
+            case 4:
+              value += (marks[key][keey][i][j] - 2) / 2;
+              break;
+          }
+        }
+      }
+    }
+  }
+
+  $('.progress').progress({ value : value });
+}
+
 function openModal(term){
   var Term = classes[$('#specialty_value').val()][$('#profile_value').val()][term];
+  var TermMarks = marks[$('#specialty_value').val()][$('#profile_value').val()][term];
 
   $('#term').text(term);
 
@@ -20,6 +70,15 @@ function openModal(term){
   $('#class-3-dropdown').dropdown();
   $('#class-4-dropdown').dropdown();
   $('#class-5-dropdown').dropdown();
+
+  for(var i = 0; i < TermMarks.length; i++){
+    if(typeof TermMarks[i] != 'number'){
+      $('#class-'+(i+1)+'-dropdown').dropdown('clear');
+      continue;
+    }
+
+    $('#class-'+(i+1)+'-dropdown [data-value="'+TermMarks[i]+'"]').click();
+  }
 
   $('#score').modal('show');
 }
