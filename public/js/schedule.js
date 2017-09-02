@@ -159,18 +159,32 @@ function highlightCurrentDay(){
   $('#table-'+day).addClass('teal');
 }
 
+function getWeekNumber(d) {
+    // Copy date so don't modify original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    // Get first day of year
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // Calculate full weeks to nearest Thursday
+    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    // Return array of year and week number
+    return [d.getUTCFullYear(), weekNo];
+}
+
 function getWeek(){
   var now = new Date();
   var september = new Date(now.getFullYear()+"-09-01");
 
-  if(september.getWeek() % 2 == 0){
-    if((now.getWeek() + 1) % 2 == 0){
+  if(getWeekNumber(september)[1] % 2 == 0){
+    if((getWeekNumber(now)[1] + 1) % 2 == 0){
       return 'even';
     } else {
       return 'odd';
     }
   } else {
-    if(now.getWeek() % 2 == 0){
+    if(getWeekNumber(now)[1] % 2 == 0){
       return 'even';
     } else {
       return 'odd';
@@ -285,8 +299,4 @@ function renderDay(day, classes){
   </div>';
 
   $('#schedule').append(model);
-}
-
-function about(){
-  $('#about-modal').modal('show');
 }
