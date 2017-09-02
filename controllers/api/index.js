@@ -6,6 +6,7 @@ let router = express.Router();
 router.use('/schedule', require('./schedule.js'));
 router.use('/group', require('./group.js'));
 router.use('/message', require('./message.js'));
+router.use('/chat', require('./chat.js'));
 
 const start = Math.floor(Date.now()/1000);
 
