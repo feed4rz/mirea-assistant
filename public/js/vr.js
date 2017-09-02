@@ -51,6 +51,61 @@ function updateProgress(){
   }
 
   $('.progress').progress({ value : value });
+
+  if(value >= 66){
+    unlock(6, false);
+    unlock(5, false);
+    unlock(4, false);
+    unlock(3, false);
+    unlock(2, false);
+    unlock(1, false);
+  } else if(value >= 58){
+    unlock(6, true);
+    unlock(5, false);
+    unlock(4, false);
+    unlock(3, false);
+    unlock(2, false);
+    unlock(1, false);
+  } else if(value >= 46){
+    unlock(6, true);
+    unlock(5, true);
+    unlock(4, false);
+    unlock(3, false);
+    unlock(2, false);
+    unlock(1, false);
+  } else if(value >= 32){
+    unlock(6, true);
+    unlock(5, true);
+    unlock(4, true);
+    unlock(3, false);
+    unlock(2, false);
+    unlock(1, false);
+  } else if(value >= 16){
+    unlock(6, true);
+    unlock(5, true);
+    unlock(4, true);
+    unlock(3, true);
+    unlock(2, false);
+    unlock(1, false);
+  } else {
+    unlock(6, true);
+    unlock(5, true);
+    unlock(4, true);
+    unlock(3, true);
+    unlock(2, true);
+    unlock(1, true);
+  }
+}
+
+function unlock(term, lock){
+  $('#term-'+term+'-lock').removeClass('lock');
+  $('#term-'+term+'-lock').removeClass('unlock');
+
+  if(lock){
+    $('#term-'+term+'-lock').addClass('lock');
+  } else {
+    $('#term-'+term+'-lock').addClass('unlock');
+  }
 }
 
 function openModal(term){
