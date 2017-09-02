@@ -4,6 +4,9 @@
     <title>MIREA Assistant</title>
 
     <%- include('layout/head') -%>
+
+    <script src="/js/classes.js"></script>
+    <script src="/js/vr.js"></script>
   </head>
   <body>
     <div class="container">
@@ -11,43 +14,251 @@
 
       <%- include('layout/menu') -%>
 
-      <h4 class="ui header">В разработке</h4>
-
-    <div class="ui basic modal" id="about-modal">
-      <div class="ui icon header">
-        <img src="/img/logo_mirea.png">
-        О проекте
-      </div>
-      <div class="content">
-        <p>Ассистент МИРЭА сделан для получения студентам различной информации об Университете.</p>
-        <p>На данный момент реализован сервис удобного расписания, который показывает нужную неделю, выделяет день и текущую пару.</p>
-        <p>Планируется добавить карту аудиторий, которая покажет как быстро добраться до нужной аудитории, доску объявлений, отображение замен в расписании, а также, возможно, личный кабинет с оценками.</p>
-        <p>Если расписание вашей группы/института отсутствует или оно не совпадает с действительностью, обратитесь к авторам проекта.</p>
-        <p>Также рекомендуется посетить <a href="https://github.com/feed4rz/mirea-assistant" target="_blank">репозиторий проекта</a> для ознакомления с API и возможностью его доработки (при желании).</p>
-        <p></p>
-        <p>
-          <div class="ui list">
-            <div class="item">
-              <i class="user icon"></i>
-              <div class="content">
-                feed4rz <a href="https://vk.com/id312615911" target="_blank">vk.com/id312615911</a>
-              </div>
-            </div>
-            <div class="item">
-              <i class="user icon"></i>
-              <div class="content">
-                Ruslan Vinter <a href="https://vk.com/r_vinter" target="_blank">vk.com/r_vinter</a>
+      <div class="ui compact form" id="form">
+        <div class="fields" id="specialty">
+          <div class="field mobile-centered">
+            <label>Направление</label>
+            <div class="ui selection dropdown" id="specialty_dropdown">
+              <input type="hidden" id="specialty_value">
+              <i class="dropdown icon"></i>
+              <div class="default text">Направление</div>
+              <div class="menu" id="specialty_select">
+                <div class="item" data-value="Информатика и вычислительная техника" onclick="selectSpecialty('Информатика и вычислительная техника')">Информатика и вычислительная техника</div>
+                <div class="item" data-value="Прикладная информатика" onclick="selectSpecialty('Прикладная информатика')">Прикладная информатика</div>
+                <div class="item" data-value="Программная инженерия" onclick="selectSpecialty('Программная инженерия')">Программная инженерия</div>
+                <div class="item" data-value="Автоматизация технологических процессов и производств" onclick="selectSpecialty('Автоматизация технологических процессов и производств')">Автоматизация технологических процессов и производств</div>
               </div>
             </div>
           </div>
-        </p>
-      </div>
-      <div class="actions">
-        <div class="ui red basic cancel button">
-          <i class="remove icon"></i>
-          Закрыть
+          <div class="field mobile-centered" id="profile">
+            <label>Профиль</label>
+            <div class="ui selection dropdown" id="profile_dropdown">
+              <input type="hidden" id="profile_value">
+              <i class="dropdown icon"></i>
+              <div class="default text">Профиль</div>
+              <div class="menu" id="profile_select">
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="ui four stackable cards" id="achievements" style="display:none;">
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/1.png">
+          </div>
+          <div class="content">
+            <div class="header">Допуск</div>
+            <div class="meta">
+              <a>1 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(1);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="16">
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/oculus.png">
+          </div>
+          <div class="content">
+            <div class="header">Oculus Rift</div>
+            <div class="meta">
+              <a>2 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(2);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="16">
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/vive.png">
+          </div>
+          <div class="content">
+            <div class="header">HTC Vive</div>
+            <div class="meta">
+              <a>3 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(3);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="32">
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/epson.png">
+          </div>
+          <div class="content">
+            <div class="header">Epson BT-300</div>
+            <div class="meta">
+              <a>4 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(4);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="46">
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/hololens.png">
+          </div>
+          <div class="content">
+            <div class="header">Microsoft Hololens</div>
+            <div class="meta">
+              <a>5 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(5);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="58">
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="/img/vr/kat.png">
+          </div>
+          <div class="content">
+            <div class="header">Kat Walk</div>
+            <div class="meta">
+              <a>6 семестр</a>
+            </div>
+            <div class="description">
+              <a class="ui teal button" href="javascript:openModal(6);">
+                <i class="add icon"></i>
+                Открыть
+              </a>
+            </div>
+          </div>
+          <div class="ui bottom attached indicating progress" data-value="0" data-total="66">
+            <div class="bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui tiny modal" id="score">
+        <div class="header">Ввод баллов за <span id="term">?</span> семестр</div>
+        <div class="content">
+          <div class="ui form" id="form">
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-1">?</label>
+                <div class="ui compact selection dropdown" id="class-1-dropdown">
+                  <input type="hidden" id="class-1-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-2">?</label>
+                <div class="ui compact selection dropdown" id="class-2-dropdown">
+                  <input type="hidden" id="class-2-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-3">?</label>
+                <div class="ui compact selection dropdown" id="class-3-dropdown">
+                  <input type="hidden" id="class-3-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="compact field mobile-centered">
+                <label id="class-4">?</label>
+                <div class="ui compact selection dropdown" id="class-4-dropdown">
+                  <input type="hidden" id="class-4-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field mobile-centered">
+                <label id="class-5">?</label>
+                <div class="ui compact selection dropdown" id="class-5-dropdown">
+                  <input type="hidden" id="class-5-value">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Оценка</div>
+                  <div class="menu">
+                    <div class="item" data-value="3">3</div>
+                    <div class="item" data-value="4">4</div>
+                    <div class="item" data-value="5">5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui approve green button" onclick="save()">Сохранить</div>
+          <div class="ui cancel red button">Закрыть</div>
+        </div>
+      </div>
+
+    <%- include('layout/about') -%>
   </body>
 </html>
