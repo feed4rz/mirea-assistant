@@ -47,10 +47,10 @@ API.prototype.group_get_all = function(callback){
 }
 
 API.prototype.schedule_get = function(params, callback){
-  if(!params) return callback('Invalid parameter1', null);
-  if(!params.institute && params.institute != 0) return callback('Invalid parameter2', null);
-  if(!params.term) return callback('Invalid parameter3', null);
-  if(!params.group) return callback('Invalid parameter4', null);
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.institute && params.institute != 0) return callback('Invalid parameter', null);
+  if(!params.term) return callback('Invalid parameter', null);
+  if(!params.group) return callback('Invalid parameter', null);
 
   this.api_call('/api/schedule/get', params, function(err, res){
     if(err){
@@ -63,6 +63,56 @@ API.prototype.schedule_get = function(params, callback){
 
 API.prototype.message_get_last = function(callback){
   this.api_call('/api/message/get/last', {}, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
+API.prototype.chat_get_all = function(callback){
+  this.api_call('/api/chat/get/all', {}, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
+API.prototype.chat_friendship = function(params, callback){
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.user) return callback('Invalid parameter', null);
+
+  this.api_call('/api/chat/friendship', params, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
+API.prototype.chat_add = function(params, callback){
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.user) return callback('Invalid parameter', null);
+  
+  this.api_call('/api/chat/add', params, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
+API.prototype.chat_join = function(params, callback){
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.user) return callback('Invalid parameter', null);
+  if(!params.chat) return callback('Invalid parameter', null);
+
+  this.api_call('/api/chat/join', params, function(err, res){
     if(err){
       callback(err, null);
     } else {
