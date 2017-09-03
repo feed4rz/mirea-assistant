@@ -15,6 +15,35 @@
 
       <%- include('layout/message') -%>
 
+      <div class="ui search mobile-centered" id="search">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Поиск по названию...">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+
+      <div class="ui five stackable cards" id="chats">
+        <% for(var i = 0; i < 20; i++){ %>
+          <div class="ui card">
+            <div class="image">
+              <img class="ui image" src="https://pp.userapi.com/c837126/v837126127/4d41b/5ha0l6U0KGk.jpg">
+            </div>
+            <div class="content">
+              <div class="header">Программная инженерия</div>
+              <div class="meta">
+                <i class="user icon"></i>
+                103 Участника
+              </div>
+            </div>
+            <div class="ui bottom attached teal button">
+              <i class="send icon"></i>
+              Подключиться
+            </div>
+          </div>
+        <% } %>
+      </div>
+
     <%- include('layout/about') -%>
   </body>
 </html>

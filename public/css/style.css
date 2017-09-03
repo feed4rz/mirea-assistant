@@ -24,6 +24,14 @@
   margin-top:10px;
 }
 
+#chats {
+  margin-top:10px;
+}
+
+#search {
+  margin-top:10px;
+}
+
 @media (min-width: 767px) {
   .pc-hidden {
     display:none !important;
