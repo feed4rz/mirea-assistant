@@ -54,7 +54,7 @@ $(document).ready(function(){
         ],
         searchFullText: false,
         onSelect : function(result, response){
-          join(result.id);
+          join(result.id, result.title);
         }
       });
     }
@@ -133,8 +133,31 @@ function add(){
     } else {
       console.log(res.vkid);
 
-      api.friendship({ user : res.vkid }, function(err, res){
+      api.chat_friendship({ user : res.vkid }, function(err, res){
+        if(err){
+          console.log(err);
+        } else {
+          if(res.status != 0){
+            $('#join-3').show('slow');
 
+            loadingAdd(false);
+          } else {
+            api.chat_add({ user : res.vkid }, function(err, res){
+              if(err){
+                console.log(err);
+              } else {
+                $('#join-2').show('slow');
+                $('#join-3').show('slow');
+              }
+
+              loadingAdd(false);
+            });
+          }
+
+          var id = Number($('#join-connect').attr('data-id'));
+
+          $('#join-connect').attr('href','javascript:connect('+id+', '+res.vkid+')');
+        }
       });
     }
 
@@ -154,11 +177,56 @@ function renderChat(chat){
         '+chat.users+' Участника\
       </div>\
     </div>\
-    <div class="ui bottom attached teal button" onclick="join('+chat.chat+')">\
+    <div class="ui bottom attached teal button" onclick="join('+chat.chat+', \''+chat.name+'\')">\
       <i class="send icon"></i>\
       Подключиться\
     </div>\
   </div>';
 
   $('#chats').append(model);
+}
+
+function loadingConnect(load){
+  $('#join-connect').removeClass('loading');
+
+  if(load){
+    $('#join-connect').addClass('loading');
+  }
+}
+
+function connect(id, user){
+  loadingConnect(true);
+
+  api.chat_join({ user : user, chat : id }, function(err, res){
+    if(err){
+      console.log(err);
+    } else {
+      $('#join-4').show('slow');
+    }
+
+    loadingConnect(false);
+  });
+}
+
+function join(id, title){
+  $('#join-title').text(title);
+
+  $('#join-connect').attr('data-id', id);
+
+  $('#join-1').show('slow');
+  $('#join-2').hide();
+  $('#join-3').hide();
+  $('#join-4').hide();
+
+  $('#join').modal('show');
+}
+
+function saveUrl(){
+  localStorage.setItem('vkurl',$('#vk').val());
+}
+
+function getUrl(){
+  if(!localStorage.getItem('vkurl')) return;
+
+  $('#vk').val(localStorage.getItem('vkurl'));
 }

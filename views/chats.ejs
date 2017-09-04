@@ -24,24 +24,7 @@
       </div>
 
       <div class="ui five stackable cards" id="chats">
-        <% for(var i = 0; i < 10; i++){ %>
-          <div class="ui card">
-            <div class="image">
-              <img class="ui image" src="https://pp.userapi.com/c837126/v837126127/4d41b/5ha0l6U0KGk.jpg">
-            </div>
-            <div class="content">
-              <div class="header">Программная инженерия</div>
-              <div class="meta">
-                <i class="user icon"></i>
-                103 Участника
-              </div>
-            </div>
-            <div class="ui bottom attached teal button">
-              <i class="send icon"></i>
-              Подключиться
-            </div>
-          </div>
-        <% } %>
+
       </div>
 
       <div class="ui center aligned grid" id="load_more_container">
@@ -49,22 +32,29 @@
       </div>
 
       <div class="ui tiny modal" id="join">
-        <div class="header">Подключение к <span id="join-title"></span></div>
+        <div class="header">Подключение к <span id="join-title">?</span></div>
         <div class="content" id="join-content">
-          <p id="join-1">
-            <h4>1. Введите ссылку на страницу ВК. </h4>
+          <p id="join-1" style="display:none;">
+            <h4>Введите ссылку на страницу ВК</h4>
 
             <div class="ui action input">
               <input type="text" placeholder="Ссылка на страницу ВК..." id="vk">
               <button class="ui button" onclick="add()">Отправить</button>
             </div>
           </p>
-          <p id="join-2">
-            <h4>2. Примите заявку бота в друзья </h4>
+          <p id="join-2" style="display:none;">
+            <h4>Примите заявку бота в друзья</h4>
 
             <a class="ui green button" href="https://vk.com/id445367917" target="_blank">Принять</a>
           </p>
-          <p><h4>3. Подключитесь к чату </h4></p>
+          <p id="join-3" style="display:none;">
+            <h4>Подключитесь к чату</h4>
+
+            <a class="ui green button" href="javascript:connect()" id="join-connect">Подключиться</a>
+          </p>
+          <p id="join-4" style="display:none;">
+            <h4>Вы были подключены к чату!</h4>
+          </p>
         </div>
         <div class="actions">
           <div class="ui cancel red button">Отменить</div>
