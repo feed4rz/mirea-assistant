@@ -48,6 +48,29 @@
         <a href="javascript:loadMore()" id="load_more" class="ui basic big button" style="z-index: 1000; display: inline-block;">Загрузить еще</a>
       </div>
 
+      <div class="ui tiny modal" id="join">
+        <div class="header">Подключение к <span id="join-title"></span></div>
+        <div class="content" id="join-content">
+          <p id="join-1">
+            <h4>1. Введите ссылку на страницу ВК. </h4>
+
+            <div class="ui action input">
+              <input type="text" placeholder="Ссылка на страницу ВК..." id="vk">
+              <button class="ui button" onclick="add()">Отправить</button>
+            </div>
+          </p>
+          <p id="join-2">
+            <h4>2. Примите заявку бота в друзья </h4>
+
+            <a class="ui green button" href="https://vk.com/id445367917" target="_blank">Принять</a>
+          </p>
+          <p><h4>3. Подключитесь к чату </h4></p>
+        </div>
+        <div class="actions">
+          <div class="ui cancel red button">Отменить</div>
+        </div>
+      </div>
+
     <%- include('layout/about') -%>
   </body>
 </html>

@@ -58,7 +58,26 @@ router.post('/add', (req, res) => {
   }).then((result) => {
     res.json({ success : true, response : { status : result } });
   }).catch((error) => {
-    res.json({ success : false, err : error.error_msg });
+    res.json({ success : false, err : error.message });
+  });
+});
+
+router.post('/formaturl', (req, res) => {
+  if(!req.body.url) return res.json({ success : false, err : 'Invalid parameter(s)' });
+
+  req.body.url = req.body.url.replace('http://','').replace('https://','').replace('m.vk.com/','').replace('vk.com/','').replace('/','').replace('www.','');
+
+  vk.api.users.get({
+    user_ids : req.body.url
+  }).then((result) => {
+    if(result.length > 0){
+      res.json({ success : true, response : { vkid : result[0].id } });
+    } else {
+      res.json({ success : false, err : 'No such user' });
+    }
+  }).catch((error) => {
+    console.log(error);
+    res.json({ success : false, err : error.message });
   });
 });
 
@@ -70,7 +89,7 @@ router.post('/friendship', (req, res) => {
   }).then((result) => {
     res.json({ success : true, response : { friendship : result[0].friend_status } });
   }).catch((error) => {
-    res.json({ success : false, err : error.error_msg });
+    res.json({ success : false, err : error.message });
   });
 });
 
@@ -84,7 +103,7 @@ router.post('/join', (req, res) => {
   }).then((result) => {
     res.json({ success : true });
   }).catch((error) => {
-    res.json({ success : false, err : error.error_msg });
+    res.json({ success : false, err : error.message });
   });
 });
 

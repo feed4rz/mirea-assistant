@@ -36,6 +36,10 @@
   margin-top:10px;
 }
 
+#join-content {
+  text-align:center;
+}
+
 @media (min-width: 767px) {
   .pc-hidden {
     display:none !important;

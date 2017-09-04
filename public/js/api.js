@@ -71,6 +71,19 @@ API.prototype.message_get_last = function(callback){
   });
 }
 
+API.prototype.chat_formaturl = function(params, callback){
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.url) return callback('Invalid parameter', null);
+
+  this.api_call('/api/chat/formaturl', params, function(err, res){
+    if(err){
+      callback(err, null);
+    } else {
+      callback(null, res);
+    }
+  });
+}
+
 API.prototype.chat_get_all = function(params, callback){
   if(!params) return callback('Invalid parameter', null);
   if(!params.offset && params.offset != 0) return callback('Invalid parameter', null);
