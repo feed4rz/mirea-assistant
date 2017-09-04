@@ -5,6 +5,9 @@ const VK = require('vk-io');
 const express = require('express');
 let router = express.Router();
 
+/* Helper dependencies */
+const sha = require('../../helpers/sha.js');
+
 /* VK config */
 const vk = new VK({
   app : config.app,
