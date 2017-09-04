@@ -25,13 +25,26 @@ vk.auth.standalone().run().then((token) => {
 let Chat = require('../../models/chat.js');
 
 router.post('/get/all', (req, res) => {
-  Chat.find((err, chats) => {
-    if(err){
-      res.json({ success : false, err : err });
-    } else {
-      res.json({ success : true, response : { chats : chats }});
-    }
-  });
+  if(!req.body.offset && req.body.offset != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
+  if(!req.body.limit && req.body.limit != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
+
+  if(req.body.limit == -1){
+    Chat.find().skip(req.body.offset).exec((err, chats) => {
+      if(err){
+        res.json({ success : false, err : err });
+      } else {
+        res.json({ success : true, response : { chats : chats }});
+      }
+    });
+  } else {
+    Chat.find().skip(req.body.offset).limit(req.body.limit).exec((err, chats) => {
+      if(err){
+        res.json({ success : false, err : err });
+      } else {
+        res.json({ success : true, response : { chats : chats }});
+      }
+    });
+  }
 });
 
 router.post('/add', (req, res) => {
