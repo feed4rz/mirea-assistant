@@ -130,16 +130,28 @@ function updateChats(){
   vk.api.messages.getDialogs({
     count : 200
   }).then((result) => {
+    let query = [];
+
     for(let i = 0; i < result.items.length; i++){
-      if(result.items[i].message.chat_id){
+      if(result.items[i].message.chat_id && result.items[i].message.chat_active.length){
         let photo = null;
 
         for(let key in result.items[i].message){
           if(key.indexOf('photo') > -1) photo = result.items[i].message[key];
         }
 
+        query.push({ chat : { $ne : result.items[i].message.chat_id } });
+
         updateOrCreate(result.items[i].message.chat_id, result.items[i].message.title, result.items[i].message.users_count, photo);
       }
+    }
+
+    if(query.length > 0){
+      Chat.remove({ $and : query }, (err) => {
+        if(err){
+          console.log(err);
+        }
+      });
     }
   }).catch((error) => {
     console.log(error);
