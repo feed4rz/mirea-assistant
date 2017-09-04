@@ -71,8 +71,12 @@ API.prototype.message_get_last = function(callback){
   });
 }
 
-API.prototype.chat_get_all = function(offset, limit, callback){
-  this.api_call('/api/chat/get/all', { offset : offset, limit : limit }, function(err, res){
+API.prototype.chat_get_all = function(params, callback){
+  if(!params) return callback('Invalid parameter', null);
+  if(!params.offset && params.offset != 0) return callback('Invalid parameter', null);
+  if(!params.limit && params.limit != 0) return callback('Invalid parameter', null);
+
+  this.api_call('/api/chat/get/all', params, function(err, res){
     if(err){
       callback(err, null);
     } else {
