@@ -139,7 +139,7 @@ function add(){
         if(err){
           console.log(err);
         } else {
-          if(res.status != 0){
+          if(res.status == 3){
             $('#join-3').show('slow');
 
             loadingAdd(false);
