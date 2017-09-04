@@ -139,7 +139,9 @@ function add(){
         if(err){
           console.log(err);
         } else {
-          if(res.status == 3){
+          var status = res.status;
+
+          if(status == 3){
             $('#join-3').show('slow');
 
             loadingAdd(false);
@@ -148,8 +150,12 @@ function add(){
               if(err){
                 console.log(err);
               } else {
-                $('#join-2').show('slow');
-                $('#join-3').show('slow');
+                if(status == 2){
+                  $('#join-3').show('slow');
+                } else {
+                  $('#join-2').show('slow');
+                  $('#join-3').show('slow');
+                }
               }
 
               loadingAdd(false);
