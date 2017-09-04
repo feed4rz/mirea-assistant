@@ -2,9 +2,24 @@ $(document).ready(function(){
   $('.progress').progress();
 
   $('#specialty_dropdown').dropdown();
+
+  loadSelected();
 });
 
-var marks = $.extend(true, {}, classes);;
+var marks = $.extend(true, {}, classes);
+
+function saveSelected(){
+  localStorage.setItem('specialty',$('#specialty_value').val());
+  localStorage.setItem('profile',$('#profile_value').val());
+}
+
+function loadSelected(){
+  if(!localStorage.getItem("profile")) return;
+
+  $('[onclick="selectSpecialty('+localStorage.getItem("specialty")+')"]').click();
+
+  $('[onclick="selectProfile(\''+localStorage.getItem("profile")+'\')"]').click();
+}
 
 function save(){
   var specialty = $('#specialty_value').val();
@@ -153,4 +168,6 @@ function selectSpecialty(name){
 
 function selectProfile(name){
   $('#achievements').show();
+
+  saveSelected();
 }
