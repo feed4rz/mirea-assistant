@@ -6,7 +6,8 @@ let Schema = mongoose.Schema;
 let chatSchema = new Schema({
   chat : Number,
   name : String,
-  img : String
+  img : String,
+  users : Number
 });
 
 module.exports = mongoose.model('Chat', chatSchema);
