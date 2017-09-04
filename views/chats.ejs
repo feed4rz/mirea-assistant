@@ -24,7 +24,7 @@
       </div>
 
       <div class="ui five stackable cards" id="chats">
-        <% for(var i = 0; i < 20; i++){ %>
+        <% for(var i = 0; i < 10; i++){ %>
           <div class="ui card">
             <div class="image">
               <img class="ui image" src="https://pp.userapi.com/c837126/v837126127/4d41b/5ha0l6U0KGk.jpg">
@@ -42,6 +42,10 @@
             </div>
           </div>
         <% } %>
+      </div>
+
+      <div class="ui center aligned grid" id="load_more_container">
+        <a href="javascript:loadMore()" id="load_more" class="ui basic big button" style="z-index: 1000; display: inline-block;">Загрузить еще</a>
       </div>
 
     <%- include('layout/about') -%>
