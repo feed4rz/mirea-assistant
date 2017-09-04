@@ -126,5 +126,57 @@ router.post('/new', (req, res) => {
   });
 });
 
+function updateChats(){
+  vk.api.messages.getDialogs({
+    count : 200
+  }).then((result) => {
+    for(let i = 0; i < result.items.length; i++){
+      if(result.items[i].type == 'chat'){
+        let photo = null;
+
+        for(let key in result.items[i]){
+          if(key.indexOf('photo') > -1) photo = result.items[i][key];
+        }
+
+        updateOrCreate(result.items[i].id, result.items[i].title, result.items[i].users_count, photo);
+      }
+    }
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+function updateOrCreate(id, name, users, img){
+  console.log(id, name, users, img);
+  
+  Chat.findOne({ chat : id }, (err, chat) => {
+    if(err){
+      console.log(err);
+    } else if(chat){
+      Chat.findOneAndUpdate({ chat : id }, { $set : { name : name, users : users, img : img }}, (err, chat) => {
+        if(err){
+          console.log(err);
+        }
+      });
+    } else {
+      let chat = new Chat({
+        chat : id,
+        name : name,
+        users : users,
+        img : img
+      });
+
+      chat.save((err, newChat) => {
+        if(err){
+          console.log(err);
+        } else {
+          console.log('New chat was added: ', { chat : id, name : name, users : users, img : img });
+        }
+      });
+    }
+  });
+}
+
+setInterval(updateChats, 10000);
 
 module.exports = router;
