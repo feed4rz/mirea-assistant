@@ -133,7 +133,9 @@ function add(){
     } else {
       console.log(res.vkid);
 
-      api.chat_friendship({ user : res.vkid }, function(err, res){
+      var vkid = res.vkid;
+
+      api.chat_friendship({ user : vkid }, function(err, res){
         if(err){
           console.log(err);
         } else {
@@ -142,7 +144,7 @@ function add(){
 
             loadingAdd(false);
           } else {
-            api.chat_add({ user : res.vkid }, function(err, res){
+            api.chat_add({ user : vkid }, function(err, res){
               if(err){
                 console.log(err);
               } else {
@@ -156,7 +158,7 @@ function add(){
 
           var id = Number($('#join-connect').attr('data-id'));
 
-          $('#join-connect').attr('href','javascript:connect('+id+', '+res.vkid+')');
+          $('#join-connect').attr('href','javascript:connect('+id+', '+vkid+')');
         }
       });
     }
@@ -196,6 +198,8 @@ function loadingConnect(load){
 
 function connect(id, user){
   loadingConnect(true);
+
+  console.log({ user : user, chat : id });
 
   api.chat_join({ user : user, chat : id }, function(err, res){
     if(err){

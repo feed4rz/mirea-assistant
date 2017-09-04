@@ -131,14 +131,14 @@ function updateChats(){
     count : 200
   }).then((result) => {
     for(let i = 0; i < result.items.length; i++){
-      if(result.items[i].type == 'chat'){
+      if(result.items[i].message.chat_id){
         let photo = null;
 
-        for(let key in result.items[i]){
-          if(key.indexOf('photo') > -1) photo = result.items[i][key];
+        for(let key in result.items[i].message){
+          if(key.indexOf('photo') > -1) photo = result.items[i].message[key];
         }
 
-        updateOrCreate(result.items[i].id, result.items[i].title, result.items[i].users_count, photo);
+        updateOrCreate(result.items[i].message.chat_id, result.items[i].message.title, result.items[i].message.users_count, photo);
       }
     }
   }).catch((error) => {
@@ -147,8 +147,6 @@ function updateChats(){
 }
 
 function updateOrCreate(id, name, users, img){
-  console.log(id, name, users, img);
-  
   Chat.findOne({ chat : id }, (err, chat) => {
     if(err){
       console.log(err);
