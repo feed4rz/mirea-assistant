@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MIREA Assistant</title>
+
+    <%- include('layout/head') -%>
+
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/admin.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('layout/header') -%>
+
+      <h3 class="mobile-centered" id="page-title">Загрузка расписания</h3>
+
+      <div class="ui form" id="form">
+        <div class="two fields mobile-centered">
+          <div class="field">
+            <label>ID Института</label>
+            <input type="text" placeholder="ex. 0 - 7" id="institute">
+          </div>
+          <div class="field">
+            <label>Семестр</label>
+            <input type="text" placeholder="ex. 172" id="term">
+          </div>
+        </div>
+        <div class="field mobile-centered">
+          <label>Расписание в формате xlsx</label>
+          <div class="ui button" id="xlsx_upload_btn" onclick="upload_xlsx();"><i class="file excel outline icon"></i> Выбрать файл</div>
+        </div>
+        <div class="field mobile-centered">
+          <label>Preview</label>
+          <textarea rows="5" id="schedule_preview"></textarea>
+        </div>
+        <div class="two fields mobile-centered">
+          <div class="field">
+            <label>Загрузить расписание на сайт</label>
+            <div class="ui action input">
+              <input type="password" autocomplete="new-password" id="secret" placeholder="Пароль">
+              <div class="ui green button" id="upload_btn" onclick="upload();"><i class="upload icon"></i> Загрузить</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input style="display:none;" type="file" id="xlsx_upload" accept=".xlsx" onchange="handleXLSX(event)">
+
+    </div>
+  </body>
+</html>
