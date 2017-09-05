@@ -127,7 +127,7 @@ function handleXLSX(event){
           term : term,
           institute : institute,
           group : convertGroupName(group),
-          secret : Math.floor(Math.random()*10000000),
+          secret : "S"+Math.floor(Math.random()*1000000),
           days : days
         };
 
