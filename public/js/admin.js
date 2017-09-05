@@ -208,16 +208,16 @@ function upload(){
         } else {
   				console.log('Current group list: clear');
 
-          for(var i = 0; i < schedule.length; i++){
+          for(var i = 0; i < schedules.length; i++){
             api.schedule_new({
-              schedule : schedule[i],
+              schedule : schedules[i],
               secret : secret
             }, (err, res) => {});
 
             var group = {
               institute : institute,
-              group : schedule[i].group,
-              secret : schedule[i].secret
+              group : schedules[i].group,
+              secret : schedules[i].secret
             };
 
             api.group_new({
