@@ -53,8 +53,8 @@ function handleXLSX(event){
 
     schedules = [];
 
-    var term = $('#term').val() || getTerm();
-    var institute = $('#institute').val() || 0;
+    var term = Number($('#term').val() || getTerm());
+    var institute = Number($('#institute').val() || 0);
 
     var classes = [];
     var types = [];
@@ -175,4 +175,66 @@ function convertType(type){
   }
 
   return result;
+}
+
+function upload(){
+  $('#upload_btn').removeClass('loading');
+  $('#upload_btn').addClass('loading');
+
+  var term = Number($('#term').val() || getTerm());
+  var institute = Number($('#institute').val() || 0);
+  var secret = $('#secret').val();
+
+  api.schedule_remove_all({
+    term : term,
+    institute : institute,
+    secret : secret
+  }, (err, res) => {
+    if(err){
+      console.log(err);
+
+      $('#upload_btn').removeClass('loading');
+    } else {
+  		console.log('Current schedule: clear');
+
+      api.group_remove_all({
+        institute : institute,
+        secret : secret
+      }, (err, res) => {
+        if(err){
+          console.log(err);
+
+          $('#upload_btn').removeClass('loading');
+        } else {
+  				console.log('Current group list: clear');
+
+          for(var i = 0; i < schedule.length; i++){
+            api.schedule_new({
+              schedule : schedule[i],
+              secret : secret
+            }, (err, res) => {});
+
+            var group = {
+              institute : institute,
+              group : schedule[i].group,
+              secret : schedule[i].secret
+            };
+
+            api.group_new({
+              group : group,
+              secret : secret
+            }, (err, res) => {
+              if(err){
+                console.log(err);
+              }
+            });
+          }
+
+  				console.log('Done');
+
+          $('#upload_btn').removeClass('loading');
+        }
+      });
+    }
+  });
 }
