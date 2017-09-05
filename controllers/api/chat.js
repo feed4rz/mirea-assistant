@@ -1,192 +1,198 @@
-const config = require('../../bot_config.json');
-
 /* Dependencies */
 const VK = require('vk-io');
 const express = require('express');
 let router = express.Router();
 
-/* Helper dependencies */
-const sha = require('../../helpers/sha.js');
+/* If there is no bot config in directory */
 
-/* VK config */
-const vk = new VK({
-  app : config.app,
-  login : config.login,
-  pass : config.password
-});
+try {
+  const config = require('../../bot_config.json');
+  
+	/* Helper dependencies */
+	const sha = require('../../helpers/sha.js');
 
-/* VK auth */
-vk.auth.standalone().run().then((token) => {
-    console.log('User token:', token);
+	/* VK config */
+	const vk = new VK({
+		app : config.app,
+		login : config.login,
+		pass : config.password
+	});
 
-    vk.setToken(token);
-}).catch((error) => {
-    console.error(error);
-});
+	/* VK auth */
+	vk.auth.standalone().run().then((token) => {
+			console.log('User token:', token);
 
-/* Models */
-let Chat = require('../../models/chat.js');
+			vk.setToken(token);
+	}).catch((error) => {
+			console.error(error);
+	});
 
-router.post('/get/all', (req, res) => {
-  if(!req.body.offset && req.body.offset != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
-  if(!req.body.limit && req.body.limit != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
+	/* Models */
+	let Chat = require('../../models/chat.js');
 
-  if(req.body.limit == -1){
-    Chat.find().skip(req.body.offset).exec((err, chats) => {
-      if(err){
-        res.json({ success : false, err : err });
-      } else {
-        res.json({ success : true, response : { chats : chats }});
-      }
-    });
-  } else {
-    Chat.find().skip(req.body.offset).limit(req.body.limit).exec((err, chats) => {
-      if(err){
-        res.json({ success : false, err : err });
-      } else {
-        res.json({ success : true, response : { chats : chats }});
-      }
-    });
-  }
-});
+	router.post('/get/all', (req, res) => {
+		if(!req.body.offset && req.body.offset != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		if(!req.body.limit && req.body.limit != 0) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-router.post('/add', (req, res) => {
-  if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		if(req.body.limit == -1){
+			Chat.find().skip(req.body.offset).exec((err, chats) => {
+				if(err){
+					res.json({ success : false, err : err });
+				} else {
+					res.json({ success : true, response : { chats : chats }});
+				}
+			});
+		} else {
+			Chat.find().skip(req.body.offset).limit(req.body.limit).exec((err, chats) => {
+				if(err){
+					res.json({ success : false, err : err });
+				} else {
+					res.json({ success : true, response : { chats : chats }});
+				}
+			});
+		}
+	});
 
-  vk.api.friends.add({
-    user_id : req.body.user
-  }).then((result) => {
-    res.json({ success : true, response : { status : result } });
-  }).catch((error) => {
-    res.json({ success : false, err : error.message });
-  });
-});
+	router.post('/add', (req, res) => {
+		if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-router.post('/formaturl', (req, res) => {
-  if(!req.body.url) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		vk.api.friends.add({
+			user_id : req.body.user
+		}).then((result) => {
+			res.json({ success : true, response : { status : result } });
+		}).catch((error) => {
+			res.json({ success : false, err : error.message });
+		});
+	});
 
-  req.body.url = req.body.url.replace('http://','').replace('https://','').replace('m.vk.com/','').replace('vk.com/','').replace('/','').replace('www.','');
+	router.post('/formaturl', (req, res) => {
+		if(!req.body.url) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-  vk.api.users.get({
-    user_ids : req.body.url
-  }).then((result) => {
-    if(result.length > 0){
-      res.json({ success : true, response : { vkid : result[0].id } });
-    } else {
-      res.json({ success : false, err : 'No such user' });
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.json({ success : false, err : error.message });
-  });
-});
+		req.body.url = req.body.url.replace('http://','').replace('https://','').replace('m.vk.com/','').replace('vk.com/','').replace('/','').replace('www.','');
 
-router.post('/friendship', (req, res) => {
-  if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		vk.api.users.get({
+			user_ids : req.body.url
+		}).then((result) => {
+			if(result.length > 0){
+				res.json({ success : true, response : { vkid : result[0].id } });
+			} else {
+				res.json({ success : false, err : 'No such user' });
+			}
+		}).catch((error) => {
+			console.log(error);
+			res.json({ success : false, err : error.message });
+		});
+	});
 
-  vk.api.friends.areFriends({
-    user_ids : [req.body.user]
-  }).then((result) => {
-    res.json({ success : true, response : { friendship : result[0].friend_status } });
-  }).catch((error) => {
-    res.json({ success : false, err : error.message });
-  });
-});
+	router.post('/friendship', (req, res) => {
+		if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-router.post('/join', (req, res) => {
-  if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
-  if(!req.body.chat) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		vk.api.friends.areFriends({
+			user_ids : [req.body.user]
+		}).then((result) => {
+			res.json({ success : true, response : { friendship : result[0].friend_status } });
+		}).catch((error) => {
+			res.json({ success : false, err : error.message });
+		});
+	});
 
-  vk.api.messages.addChatUser({
-    chat_id : req.body.chat,
-    user_id : req.body.user
-  }).then((result) => {
-    res.json({ success : true });
-  }).catch((error) => {
-    res.json({ success : false, err : error.message });
-  });
-});
+	router.post('/join', (req, res) => {
+		if(!req.body.user) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		if(!req.body.chat) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-router.post('/new', (req, res) => {
-  if(!req.body.chat) return res.json({ success : false, err : 'Invalid parameter(s)' });
-  if(!req.body.secret) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		vk.api.messages.addChatUser({
+			chat_id : req.body.chat,
+			user_id : req.body.user
+		}).then((result) => {
+			res.json({ success : true });
+		}).catch((error) => {
+			res.json({ success : false, err : error.message });
+		});
+	});
 
-  let secret_hash = global.config.secret_hash;
+	router.post('/new', (req, res) => {
+		if(!req.body.chat) return res.json({ success : false, err : 'Invalid parameter(s)' });
+		if(!req.body.secret) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
-  if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
+		let secret_hash = global.config.secret_hash;
 
-  let chat = new Chat(req.body.chat);
+		if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
 
-  chat.save((err, newChat) => {
-    if(err){
-      res.json({ success : false, err : err });
-    } else {
-      res.json({ success : true, response : { chat : newChat }});
-    }
-  });
-});
+		let chat = new Chat(req.body.chat);
 
-function updateChats(){
-  vk.api.messages.getDialogs({
-    count : 200
-  }).then((result) => {
-    let query = [];
+		chat.save((err, newChat) => {
+			if(err){
+				res.json({ success : false, err : err });
+			} else {
+				res.json({ success : true, response : { chat : newChat }});
+			}
+		});
+	});
 
-    for(let i = 0; i < result.items.length; i++){
-      if(result.items[i].message.chat_id && result.items[i].message.chat_active.length){
-        let photo = null;
+	function updateChats(){
+		vk.api.messages.getDialogs({
+			count : 200
+		}).then((result) => {
+			let query = [];
 
-        for(let key in result.items[i].message){
-          if(key.indexOf('photo') > -1) photo = result.items[i].message[key];
-        }
+			for(let i = 0; i < result.items.length; i++){
+				if(result.items[i].message.chat_id && result.items[i].message.chat_active.length){
+					let photo = null;
 
-        query.push({ chat : { $ne : result.items[i].message.chat_id } });
+					for(let key in result.items[i].message){
+						if(key.indexOf('photo') > -1) photo = result.items[i].message[key];
+					}
 
-        updateOrCreate(result.items[i].message.chat_id, result.items[i].message.title, result.items[i].message.users_count, photo);
-      }
-    }
+					query.push({ chat : { $ne : result.items[i].message.chat_id } });
 
-    if(query.length > 0){
-      Chat.remove({ $and : query }, (err) => {
-        if(err){
-          console.log(err);
-        }
-      });
-    }
-  }).catch((error) => {
-    console.log(error);
-  });
+					updateOrCreate(result.items[i].message.chat_id, result.items[i].message.title, result.items[i].message.users_count, photo);
+				}
+			}
+
+			if(query.length > 0){
+				Chat.remove({ $and : query }, (err) => {
+					if(err){
+						console.log(err);
+					}
+				});
+			}
+		}).catch((error) => {
+			console.log(error);
+		});
+	}
+
+	function updateOrCreate(id, name, users, img){
+		Chat.findOne({ chat : id }, (err, chat) => {
+			if(err){
+				console.log(err);
+			} else if(chat){
+				Chat.findOneAndUpdate({ chat : id }, { $set : { name : name, users : users, img : img }}, (err, chat) => {
+					if(err){
+						console.log(err);
+					}
+				});
+			} else {
+				let chat = new Chat({
+					chat : id,
+					name : name,
+					users : users,
+					img : img
+				});
+
+				chat.save((err, newChat) => {
+					if(err){
+						console.log(err);
+					} else {
+						console.log('New chat was added: ', { chat : id, name : name, users : users, img : img });
+					}
+				});
+			}
+		});
+	}
+
+	setInterval(updateChats, 10000);
+
+	module.exports = router;
+} catch (ex) {
+  module.exports = router;
 }
-
-function updateOrCreate(id, name, users, img){
-  Chat.findOne({ chat : id }, (err, chat) => {
-    if(err){
-      console.log(err);
-    } else if(chat){
-      Chat.findOneAndUpdate({ chat : id }, { $set : { name : name, users : users, img : img }}, (err, chat) => {
-        if(err){
-          console.log(err);
-        }
-      });
-    } else {
-      let chat = new Chat({
-        chat : id,
-        name : name,
-        users : users,
-        img : img
-      });
-
-      chat.save((err, newChat) => {
-        if(err){
-          console.log(err);
-        } else {
-          console.log('New chat was added: ', { chat : id, name : name, users : users, img : img });
-        }
-      });
-    }
-  });
-}
-
-setInterval(updateChats, 10000);
-
-module.exports = router;
