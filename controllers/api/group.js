@@ -109,9 +109,9 @@ router.post('/remove/all', (req, res) => {
   if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
 
 	let query = {};
-	if(req.body.institute || req.body.institute == 0) query = {
+	if((req.body.institute || req.body.institute == 0) && req.body.year) query = {
 		institute : req.body.institute,
-		term : req.body.term
+		year : req.body.year
 	};
 
   Group.remove(query, (err) => {

@@ -48,7 +48,6 @@ API.prototype.group_get_all = function(callback){
 
 API.prototype.group_remove_all = function(params, callback){
   if(!params) return callback('Invalid parameter', null);
-  if(!params.institute && params.institute != 0) return callback('Invalid parameter', null);
   if(!params.secret) return callback('Invalid parameter', null);
 
   this.api_call('/api/group/remove/all', params, function(err, res){
@@ -76,8 +75,6 @@ API.prototype.group_new = function(params, callback){
 
 API.prototype.schedule_get = function(params, callback){
   if(!params) return callback('Invalid parameter', null);
-  if(!params.institute && params.institute != 0) return callback('Invalid parameter', null);
-  if(!params.term) return callback('Invalid parameter', null);
   if(!params.group) return callback('Invalid parameter', null);
 
   this.api_call('/api/schedule/get', params, function(err, res){
@@ -91,8 +88,6 @@ API.prototype.schedule_get = function(params, callback){
 
 API.prototype.schedule_remove_all = function(params, callback){
   if(!params) return callback('Invalid parameter', null);
-  if(!params.institute && params.institute != 0) return callback('Invalid parameter', null);
-  if(!params.term) return callback('Invalid parameter', null);
   if(!params.secret) return callback('Invalid parameter', null);
 
   this.api_call('/api/schedule/remove/all', params, function(err, res){

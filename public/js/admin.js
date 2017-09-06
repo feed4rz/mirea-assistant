@@ -53,7 +53,7 @@ function handleXLSX(event){
 
     schedules = [];
 
-    var term = Number($('#term').val() || getTerm());
+    var year = Number($('#year').val() || 17);
     var institute = Number($('#institute').val() || 0);
 
     var classes = [];
@@ -124,7 +124,7 @@ function handleXLSX(event){
         }
 
         var schedule = {
-          term : term,
+          year : year,
           institute : institute,
           group : convertGroupName(group),
           secret : "S"+Math.floor(Math.random()*1000000),
@@ -181,12 +181,12 @@ function upload(){
   $('#upload_btn').removeClass('loading');
   $('#upload_btn').addClass('loading');
 
-  var term = Number($('#term').val() || getTerm());
+  var year = Number($('#year').val() || 17);
   var institute = Number($('#institute').val() || 0);
   var secret = $('#secret').val();
 
   api.schedule_remove_all({
-    term : term,
+    year : year,
     institute : institute,
     secret : secret
   }, (err, res) => {
@@ -198,6 +198,7 @@ function upload(){
   		console.log('Current schedule: clear');
 
       api.group_remove_all({
+        year : year,
         institute : institute,
         secret : secret
       }, (err, res) => {
@@ -215,6 +216,7 @@ function upload(){
             }, (err, res) => {});
 
             var group = {
+              year : year,
               institute : institute,
               group : schedules[i].group,
               secret : schedules[i].secret

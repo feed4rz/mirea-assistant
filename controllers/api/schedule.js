@@ -19,12 +19,9 @@ router.post('/get/all', (req, res) => {
 });
 
 router.post('/get', (req, res) => {
-  if(!req.body.term) return res.json({ success : false, err : 'Invalid parameter(s)' });
   if(!req.body.group) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
   let query = {
-    term : req.body.term,
-    institute : req.body.institute,
     group : req.body.group
   };
 
@@ -112,9 +109,9 @@ router.post('/remove/all', (req, res) => {
   if(sha(req.body.secret) != secret_hash) return res.json({ success : false, err : 'Incorrect secret' });
 
 	let query = {};
-	if((req.body.institute || req.body.institute == 0) && req.body.term) query = {
+	if((req.body.institute || req.body.institute == 0) && req.body.year) query = {
 		institute : req.body.institute,
-		term : req.body.term
+		year : req.body.year
 	};
 
   Schedule.remove(query, (err) => {

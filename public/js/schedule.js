@@ -89,7 +89,7 @@ function selectGroup(grp){
 function selectWeek(type){
   week = type;
 
-  api.schedule_get({ term : getTerm(), institute : institute, group : group }, function(err, res){
+  api.schedule_get({ group : group }, function(err, res){
     if(err){
       console.log(err);
     } else {
