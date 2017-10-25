@@ -5,7 +5,6 @@ let Schema = mongoose.Schema;
 /* Schema */
 let groupSchema = new Schema({
   institute : Number,
-  year : Number,
   group : String,
   secret : String,
   last_update : Number

@@ -89,7 +89,7 @@ function selectGroup(grp){
 function selectWeek(type){
   week = type;
 
-  api.schedule_get({ group : group }, function(err, res){
+  api.schedule_get({ institute : institute, group : group }, function(err, res){
     if(err){
       console.log(err);
     } else {
@@ -140,11 +140,6 @@ function enable(field, e){
   if(e){
     $('#'+field).addClass('disabled');
   }
-}
-
-function getTerm(){
-  var date = new Date();
-  return date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString();
 }
 
 var mod = function (num, mod) {

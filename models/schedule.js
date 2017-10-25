@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 /* Schema */
 let scheduleSchema = new Schema({
-  year : Number,
+  term : Number,
   institute : Number,
   group : String,
   days : Array,

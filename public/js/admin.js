@@ -28,11 +28,6 @@ function sheet2arr(sheet){
    return object;
 }
 
-function getTerm(){
-  var date = new Date();
-  return Number(date.getFullYear().toString().substr(-2) + "" + Math.ceil(date.getMonth() / 6).toString());
-}
-
 var schedules = [];
 
 function handleXLSX(event){
@@ -53,7 +48,6 @@ function handleXLSX(event){
 
     schedules = [];
 
-    var year = Number($('#year').val() || 17);
     var institute = Number($('#institute').val() || 0);
 
     var classes = [];
@@ -124,7 +118,6 @@ function handleXLSX(event){
         }
 
         var schedule = {
-          year : year,
           institute : institute,
           group : convertGroupName(group),
           secret : "S"+Math.floor(Math.random()*1000000),
@@ -181,12 +174,10 @@ function upload(){
   $('#upload_btn').removeClass('loading');
   $('#upload_btn').addClass('loading');
 
-  var year = Number($('#year').val() || 17);
   var institute = Number($('#institute').val() || 0);
   var secret = $('#secret').val();
 
   api.schedule_remove_all({
-    year : year,
     institute : institute,
     secret : secret
   }, (err, res) => {
@@ -198,7 +189,6 @@ function upload(){
   		console.log('Current schedule: clear');
 
       api.group_remove_all({
-        year : year,
         institute : institute,
         secret : secret
       }, (err, res) => {
@@ -216,7 +206,6 @@ function upload(){
             }, (err, res) => {});
 
             var group = {
-              year : year,
               institute : institute,
               group : schedules[i].group,
               secret : schedules[i].secret

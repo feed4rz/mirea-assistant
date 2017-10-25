@@ -17,6 +17,10 @@ router.get('/labaccess', (req, res) => {
   res.render('vr_lab_calculator');
 });
 
+router.get('/voice', (req, res) => {
+  res.render('voice');
+});
+
 router.get('/admin', (req, res) => {
   res.render('admin');
 });
