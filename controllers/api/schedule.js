@@ -22,7 +22,6 @@ router.post('/get', (req, res) => {
   if(!req.body.group) return res.json({ success : false, err : 'Invalid parameter(s)' });
 
   let query = {
-    institute : req.body.institute,
     group : req.body.group
   };
 
